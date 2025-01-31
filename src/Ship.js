@@ -2,7 +2,6 @@ const createShip = function(length) {
     return {
         length,
         hitNumberTimes : 0,
-        haveSunk : false,
         getHitNumberTimes: function() {
             return this.hitNumberTimes;
         },
@@ -12,7 +11,8 @@ const createShip = function(length) {
         },
 
         isSunk: function() {
-            
+            if(this.hitNumberTimes >= this.length) return true ;
+            else return false;
         }
     }
 }

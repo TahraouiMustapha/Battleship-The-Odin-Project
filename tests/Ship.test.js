@@ -16,6 +16,6 @@ describe('Ship factory', () => {
         myShip.hit();
         expect(myShip.isSunk()).toEqual(false);
         myShip.hit();
-        expect(myShip.isSunk()).toEqual(true);
+        expect(myShip.isSunk()).toEqual(true)
     })
 })
