@@ -50,5 +50,44 @@ describe('Gameboad module', () => {
             expect(myBoard.placeShip(ship1, wrongVerticalCoordinate)).toEqual(false);
             
         })
+
+        test('check whether the coordinate had placed at other ship\'s place ', () => {
+            const ship1 = createShip(5);
+            const fitCoordinate = {
+                x: 1,
+                y: 0,
+                direction: 'H' 
+            }
+
+            expect(myBoard.placeShip(ship1, fitCoordinate)).toEqual(true);
+            const ship2 = createShip(3);
+            const wrongPlace = {
+                x: 3,
+                y: 0,
+                direction: 'H' 
+            }
+
+            expect(myBoard.placeShip(ship2, wrongPlace)).toEqual(false);
+
+        })
+
+        test('check whether the coordinate had placed at other ship\'s place (vertical)', ()=> {
+            const ship1 = createShip(5);
+            const fitCoordinate = {
+                x: 1,
+                y: 7,
+                direction: 'V' 
+            }
+
+            expect(myBoard.placeShip(ship1, fitCoordinate)).toEqual(true);
+            const ship2 = createShip(3);
+            const wrongPlace = {
+                x: 1,
+                y: 5,
+                direction: 'V' 
+            }
+
+            expect(myBoard.placeShip(ship2, wrongPlace)).toEqual(false);
+        })
     })
 })
