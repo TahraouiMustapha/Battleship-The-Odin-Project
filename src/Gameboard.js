@@ -8,12 +8,19 @@ const createGameboard = function( boardWidth = 10 ) {
         let horizentalCondition = ((x + ship.getLength() - 1) < boardWidth) && direction === 'H' ;
         let verticalCondition = ((y - ship.getLength() + 1) >= 0) && direction === 'V';
 
-        if(!board[x][y]) {
-            if(horizentalCondition || verticalCondition) {
-                board[x][y] = 1;
-                return true;
+        if(horizentalCondition) {
+            for(let i = x; i - x < ship.getLength(); i++) {
+                if(board[i][y]) return false;
+                else board[i][y] = 1;
             }
-        } 
+            return true;
+        } else if(verticalCondition) {
+            for(let i = y; y - i < ship.getLength() ; i--) {
+                if(board[x][i]) return false;
+                else board[x][i] = 1;
+            }
+            return true ;
+        }
         return false;
     }            
 

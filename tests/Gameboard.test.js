@@ -4,8 +4,8 @@ import { createShip } from "../src/Ship";
 
 describe('Gameboad module', () => {
     describe('Gameboard should able to place a ship at specific coordinate.', () => {
-        const myBoard = createGameboard();
         test('check whether the coordinate had placed at', () => {
+            const myBoard = createGameboard();
             const ship1 = createShip(1);
             const coordinate = {x: 2,
                                 y: 2,
@@ -18,6 +18,7 @@ describe('Gameboad module', () => {
         })
 
         test('Check whether the coordinate fits the ship\'s length with both directions.', () => {
+            const myBoard = createGameboard();
             const ship1 = createShip(5);
             const fitCoordinate = {
                 x: 1,
@@ -52,6 +53,7 @@ describe('Gameboad module', () => {
         })
 
         test('check whether the coordinate had placed at other ship\'s place ', () => {
+            const myBoard = createGameboard();
             const ship1 = createShip(5);
             const fitCoordinate = {
                 x: 1,
@@ -72,6 +74,7 @@ describe('Gameboad module', () => {
         })
 
         test('check whether the coordinate had placed at other ship\'s place (vertical)', ()=> {
+            const myBoard = createGameboard();
             const ship1 = createShip(5);
             const fitCoordinate = {
                 x: 1,
