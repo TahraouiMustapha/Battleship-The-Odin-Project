@@ -2,6 +2,10 @@ const createShip = function(length) {
     return {
         length,
         hitNumberTimes : 0,
+
+        getLength: function() {
+            return this.length;
+        },
         getHitNumberTimes: function() {
             return this.hitNumberTimes;
         },
