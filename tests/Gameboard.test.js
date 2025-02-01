@@ -2,7 +2,7 @@
 import { createGameboard } from "../src/Gameboard"; 
 import { createShip } from "../src/Ship";
 
-describe('Gameboad module', () => {
+
     describe('Gameboard should able to place a ship at specific coordinate.', () => {
         test('check whether the coordinate had placed at', () => {
             const myBoard = createGameboard();
@@ -93,4 +93,22 @@ describe('Gameboad module', () => {
             expect(myBoard.placeShip(ship2, wrongPlace)).toEqual(false);
         })
     })
-})
+
+    describe('receiveAttack ', () => {
+        const myBoard = createGameboard();
+        test('It determines wether or not the attack hit a ship.', () => {
+            const ship = createShip(3);
+            const coordinate = {
+                x: 2, 
+                y: 2, 
+                direction: 'H'
+            }
+
+            myBoard.placeShip(ship, coordinate);
+            expect(myBoard.receiveAttack(7, 7)).toEqual(false);
+            expect(myBoard.receiveAttack(1, 2)).toEqual(false);
+            expect(myBoard.receiveAttack(2, 2)).toEqual(true);
+            expect(myBoard.receiveAttack(4, 2)).toEqual(true);
+        })
+    })
+
