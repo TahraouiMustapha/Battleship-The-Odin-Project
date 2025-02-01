@@ -7,9 +7,11 @@ describe('Gameboad module', () => {
         test('check whether the coordinate had placed at', () => {
             const ship1 = createShip(5);
             const myBoard = createGameboard();
-            const coordinate = {2, 2, 'H'} // {x, y, horizental(H) or vertical(V) }
+            const coordinate = {x: 2,
+                                y: 2,
+                                direction: 'H'} // { horizental(H) or vertical(V) }
 
-            expect(myBoard.placeShip(ship1), coordinate).toEqual(true);
+            expect(myBoard.placeShip(ship1, coordinate)).toEqual(true);
             const ship2 = createShip(2); 
             expect(myBoard.placeShip(ship2, coordinate)).toEqual(false);
 
