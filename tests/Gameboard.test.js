@@ -110,5 +110,19 @@ import { createShip } from "../src/Ship";
             expect(myBoard.receiveAttack(2, 2)).toEqual(true);
             expect(myBoard.receiveAttack(4, 2)).toEqual(true);
         })
+
+        test('sends the \'hit\' function to the correct ship', () => {
+            const myHittedShip = createShip(4);
+            const coordinate = {
+                x: 0, 
+                y: 0, 
+                direction: 'H'
+            }
+
+            expect(myHittedShip.getHitNumberTimes()).toBe(0);
+            myBoard.placeShip(myHittedShip, coordinate);
+            myBoard.receiveAttack(0, 0);
+            expect(myHittedShip.getHitNumberTimes()).toBe(1);
+        })
     })
 
