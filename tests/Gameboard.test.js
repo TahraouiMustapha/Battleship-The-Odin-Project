@@ -158,30 +158,37 @@ import { createShip } from "../src/Ship";
     })
 
     describe('Gameboard reports whether or not all of their ships have been sunk.', () => {
-        const myBoard = createGameboard();
-        const ship1 = createShip(2, 'ship1'); 
-        const ship2 = createShip(2, 'ship2'); 
+        let myBoard;
 
-        const coordinate1 = {
-            x: 2,
-            y: 6, 
-            direction: 'V' 
-        };
+        beforeEach(() => {
+            myBoard = createGameboard(); // Create a fresh gameboard before each test
+        });
 
-        const coordinate2 = {
-            x: 4,
-            y: 5, 
-            direction: 'V' 
-        }
-
-        myBoard.placeShip(ship1, coordinate1);
-        myBoard.placeShip(ship2, coordinate2);
-        myBoard.receiveAttack(2, 6);
-        myBoard.receiveAttack(2, 5); // ship1 have sunk
-        expect(myBoard.isLooseAllShips()).toEqual(false);
-        myBoard.receiveAttack(4, 5);
-        myBoard.receiveAttack(4, 4); // ship2 have sunk
-        expect(myBoard.isLooseAllShips()).toEqual(true);
+        test('reports whether or not all of their ships have been sunk', () => {
+            const ship1 = createShip(2, 'ship1'); 
+            const ship2 = createShip(2, 'ship2'); 
+    
+            const coordinate1 = {
+                x: 2,
+                y: 6, 
+                direction: 'V' 
+            };
+    
+            const coordinate2 = {
+                x: 4,
+                y: 5, 
+                direction: 'V' 
+            }
+    
+            myBoard.placeShip(ship1, coordinate1);
+            myBoard.placeShip(ship2, coordinate2);
+            myBoard.receiveAttack(2, 6);
+            myBoard.receiveAttack(2, 5); // ship1 have sunk
+            expect(myBoard.isLoseAllShips()).toEqual(false);
+            myBoard.receiveAttack(4, 5);
+            myBoard.receiveAttack(4, 4); // ship2 have sunk
+            expect(myBoard.isLoseAllShips()).toEqual(true);
+        })
 
     })
 

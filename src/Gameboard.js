@@ -3,7 +3,7 @@ const createGameboard = function( boardWidth = 10 ) {
                 .map(() => new Array(boardWidth).fill(0));
 
 
-    const shipPlaces = {};
+    const boardShips = {};
 
     const checkHorizentalPlace = function (x, y, shipLength) {
         for(let i = x; i - x < shipLength; i++) {
@@ -29,7 +29,7 @@ const createGameboard = function( boardWidth = 10 ) {
                 for(let i = x; i - x < ship.getLength(); i++) {
                     board[i][y] = ship.name;
                 }
-                shipPlaces[ship.name] = ship;
+                boardShips[ship.name] = ship;
                 return true;
             }
         } else if(verticalCondition) {
@@ -37,7 +37,7 @@ const createGameboard = function( boardWidth = 10 ) {
                 for(let i = y; y - i < ship.getLength() ; i--) {
                     board[x][i] = ship.name;
                 }
-                shipPlaces[ship.name] = ship;
+                boardShips[ship.name] = ship;
                 return true ;
             }
         }
@@ -46,7 +46,7 @@ const createGameboard = function( boardWidth = 10 ) {
     
     const sendHitFunction = function(shipName) {
         if(shipName) {
-            shipPlaces[shipName].hit();
+            boardShips[shipName].hit();
         }
     }
     
@@ -66,10 +66,16 @@ const createGameboard = function( boardWidth = 10 ) {
         }
     }
 
+    const isLoseAllShips = () => {
+        const myShips = Object.values(boardShips);
+        return myShips.every((ship) => ship.isSunk() );
+    }
+
 
     return {
         placeShip,
-        receiveAttack
+        receiveAttack, 
+        isLoseAllShips,
     }
 }
 
