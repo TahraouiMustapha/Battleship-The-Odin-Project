@@ -141,6 +141,7 @@ import { createShip } from "../src/Ship";
         })
 
         test('Can\'t shot on missed shot or hitted places', ()=> {
+            const testBoard = createGameboard();
             const myHittedShip = createShip(4, 'myHittedShip');
             const coordinate = {
                 x: 0, 
@@ -148,11 +149,11 @@ import { createShip } from "../src/Ship";
                 direction: 'H'
             }
 
-            myBoard.placeShip(myHittedShip, coordinate);
-            expect(myBoard.receiveAttack(0, 0)).toEqual(true); 
-            expect(myBoard.receiveAttack(0, 3)).toEqual(false);
-            expect(myBoard.receiveAttack(0, 3)).toEqual(false); // shot on misssed shot
-            expect(myBoard.receiveAttack(0, 0)).toEqual(false); // shot on hitted place
+            testBoard.placeShip(myHittedShip, coordinate);
+            expect(testBoard.receiveAttack(0, 0)).toEqual(true); 
+            expect(testBoard.receiveAttack(0, 3)).toEqual(false);
+            expect(testBoard.receiveAttack(0, 0)).toEqual(false); // shot on hitted place
+            expect(testBoard.receiveAttack(0, 3)).toEqual(false); // shot on misssed shot
         })
     })
 

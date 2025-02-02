@@ -51,9 +51,14 @@ const createGameboard = function( boardWidth = 10 ) {
     }
     
     const receiveAttack = function(x, y) {
-        if(board[x][y]) {
+        if(
+            board[x][y] && 
+            board[x][y] !== 'miss' &&
+            board[x][y] !== 'hit'
+        ) {
             let shipsName = board[x][y];
             sendHitFunction(shipsName);
+            board[x][y] = 'hit';
             return true;
         } else {
             board[x][y] = 'miss';
