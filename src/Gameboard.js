@@ -55,8 +55,10 @@ const createGameboard = function( boardWidth = 10 ) {
             let shipsName = board[x][y];
             sendHitFunction(shipsName);
             return true;
+        } else {
+            board[x][y] = 'miss';
+            return false;
         }
-        else return false;
     }
 
 

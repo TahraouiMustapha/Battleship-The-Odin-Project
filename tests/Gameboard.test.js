@@ -136,6 +136,8 @@ import { createShip } from "../src/Ship";
             expect(myHittedShip.getHitNumberTimes()).toBe(0);
             myBoard.receiveAttack(0, 0);
             expect(myHittedShip.getHitNumberTimes()).toBe(1);
+            myBoard.receiveAttack(2, 0); // hit the ship along its length
+            expect(myHittedShip.getHitNumberTimes()).toBe(2);
         })
     })
 
