@@ -1,4 +1,5 @@
 /* eslint-disable no-undef */
+import { createTransformer } from "babel-jest";
 import { createGameboard } from "../src/Gameboard"; 
 import { createShip } from "../src/Ship";
 
@@ -70,7 +71,20 @@ import { createShip } from "../src/Ship";
             }
 
             expect(myBoard.placeShip(ship2, wrongPlace)).toEqual(false);
+            const wrongPlace2 = {
+                x: 0,
+                y: 0,
+                direction: 'H' 
+            }
+            expect(myBoard.placeShip(ship2, wrongPlace2)).toEqual(false);
 
+            const rightPlaceOnVertical = {
+                x: 0,
+                y: 2,
+                direction: 'V' 
+            }
+
+            expect(myBoard.placeShip(ship2, rightPlaceOnVertical)).toEqual(true);
         })
 
         test('check whether the coordinate had placed at other ship\'s place (vertical)', ()=> {
