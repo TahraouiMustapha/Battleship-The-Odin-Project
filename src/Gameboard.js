@@ -5,25 +5,41 @@ const createGameboard = function( boardWidth = 10 ) {
 
     const shipPlaces = {};
 
+    const checkHorizentalPlace = function (x, y, shipLength) {
+        for(let i = x; i - x < shipLength; i++) {
+            if(board[i][y]) return false;
+        } 
+        return true;
+    }
+
+    const checkVerticalPlace = function(x, y, shipLength) {
+        for(let i = y; y - i < shipLength ; i--) {
+            if(board[x][i]) return false;
+        }
+        return true;
+    }
+
     const placeShip = function(ship, coordinate) {
         let { x, y, direction } = coordinate; 
         let horizentalCondition = ((x + ship.getLength() - 1) < boardWidth) && direction === 'H' ;
         let verticalCondition = ((y - ship.getLength() + 1) >= 0) && direction === 'V';
 
         if(horizentalCondition) {
-            for(let i = x; i - x < ship.getLength(); i++) {
-                if(board[i][y]) return false;
-                else board[i][y] = ship.name;
+            if(checkHorizentalPlace(x, y, ship.getLength())) {
+                for(let i = x; i - x < ship.getLength(); i++) {
+                    board[i][y] = ship.name;
+                }
+                shipPlaces[ship.name] = ship;
+                return true;
             }
-            shipPlaces[ship.name] = ship;
-            return true;
         } else if(verticalCondition) {
-            for(let i = y; y - i < ship.getLength() ; i--) {
-                if(board[x][i]) return false;
-                else board[x][i] = ship.name;
+            if(checkVerticalPlace(x, y, ship.getLength())) {
+                for(let i = y; y - i < ship.getLength() ; i--) {
+                    board[x][i] = ship.name;
+                }
+                shipPlaces[ship.name] = ship;
+                return true ;
             }
-            shipPlaces[ship.name] = ship;
-            return true ;
         }
         return false;
     }  
