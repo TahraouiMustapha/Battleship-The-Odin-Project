@@ -139,5 +139,20 @@ import { createShip } from "../src/Ship";
             myBoard.receiveAttack(2, 0); // hit the ship along its length
             expect(myHittedShip.getHitNumberTimes()).toBe(2);
         })
+
+        test('Can\'t shot on missed shot or hitted places', ()=> {
+            const myHittedShip = createShip(4, 'myHittedShip');
+            const coordinate = {
+                x: 0, 
+                y: 0, 
+                direction: 'H'
+            }
+
+            myBoard.placeShip(myHittedShip, coordinate);
+            expect(myBoard.receiveAttack(0, 0)).toEqual(true); 
+            expect(myBoard.receiveAttack(0, 3)).toEqual(false);
+            expect(myBoard.receiveAttack(0, 3)).toEqual(false); // shot on misssed shot
+            expect(myBoard.receiveAttack(0, 0)).toEqual(false); // shot on hitted place
+        })
     })
 
