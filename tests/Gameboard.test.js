@@ -6,7 +6,7 @@ import { createShip } from "../src/Ship";
     describe('Gameboard should able to place a ship at specific coordinate.', () => {
         test('check whether the coordinate had placed at', () => {
             const myBoard = createGameboard();
-            const ship1 = createShip(1);
+            const ship1 = createShip(1, 'ship1');
             const coordinate = {x: 2,
                                 y: 2,
                                 direction: 'H'} // { horizental(H) or vertical(V) }
@@ -19,7 +19,7 @@ import { createShip } from "../src/Ship";
 
         test('Check whether the coordinate fits the ship\'s length with both directions.', () => {
             const myBoard = createGameboard();
-            const ship1 = createShip(5);
+            const ship1 = createShip(5, 'ship1');
             const fitCoordinate = {
                 x: 1,
                 y: 0,
@@ -54,7 +54,7 @@ import { createShip } from "../src/Ship";
 
         test('check whether the coordinate had placed at other ship\'s place ', () => {
             const myBoard = createGameboard();
-            const ship1 = createShip(5);
+            const ship1 = createShip(5, 'ship1');
             const fitCoordinate = {
                 x: 1,
                 y: 0,
@@ -62,7 +62,7 @@ import { createShip } from "../src/Ship";
             }
 
             expect(myBoard.placeShip(ship1, fitCoordinate)).toEqual(true);
-            const ship2 = createShip(3);
+            const ship2 = createShip(3, 'ship2');
             const wrongPlace = {
                 x: 3,
                 y: 0,
@@ -75,7 +75,7 @@ import { createShip } from "../src/Ship";
 
         test('check whether the coordinate had placed at other ship\'s place (vertical)', ()=> {
             const myBoard = createGameboard();
-            const ship1 = createShip(5);
+            const ship1 = createShip(5, 'ship1');
             const fitCoordinate = {
                 x: 1,
                 y: 7,
@@ -83,7 +83,7 @@ import { createShip } from "../src/Ship";
             }
 
             expect(myBoard.placeShip(ship1, fitCoordinate)).toEqual(true);
-            const ship2 = createShip(3);
+            const ship2 = createShip(3, 'ship2');
             const wrongPlace = {
                 x: 1,
                 y: 5,
@@ -97,7 +97,7 @@ import { createShip } from "../src/Ship";
     describe('receiveAttack ', () => {
         const myBoard = createGameboard();
         test('It determines wether or not the attack hit a ship.', () => {
-            const ship = createShip(3);
+            const ship = createShip(3, 'ship');
             const coordinate = {
                 x: 2, 
                 y: 2, 
@@ -112,15 +112,15 @@ import { createShip } from "../src/Ship";
         })
 
         test('sends the \'hit\' function to the correct ship', () => {
-            const myHittedShip = createShip(4);
+            const myHittedShip = createShip(4, 'myHittedShip');
             const coordinate = {
                 x: 0, 
                 y: 0, 
                 direction: 'H'
             }
 
-            expect(myHittedShip.getHitNumberTimes()).toBe(0);
             myBoard.placeShip(myHittedShip, coordinate);
+            expect(myHittedShip.getHitNumberTimes()).toBe(0);
             myBoard.receiveAttack(0, 0);
             expect(myHittedShip.getHitNumberTimes()).toBe(1);
         })
