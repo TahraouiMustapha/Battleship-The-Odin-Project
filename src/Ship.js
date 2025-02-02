@@ -1,5 +1,6 @@
-const createShip = function(length) {
+const createShip = function(length, name) {
     return {
+        name, 
         length,
         hitNumberTimes : 0,
 
