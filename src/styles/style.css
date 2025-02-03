@@ -81,6 +81,24 @@ header {
     border: 1px solid black;
 }
 
+/* for missed square */
+.square.miss,
+.square.hit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.square.miss {
+    font-size: 1.5em;
+}
+
+.square.hit {
+    font-size: 2em;
+    color: red;
+}
+
+
 .board .column-numbers {
     position: absolute;
     transform: translateY(-100%);

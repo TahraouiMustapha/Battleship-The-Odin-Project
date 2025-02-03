@@ -29,7 +29,7 @@ const createGameboard = function( boardWidth = 10 ) {
         if(horizentalCondition) {
             if(checkHorizentalPlace(x, y, ship.getLength())) {
                 for(let i = x; i - x < ship.getLength(); i++) {
-                    board[i][y] = ship.name;
+                    board[x][i] = ship.name;
                 }
                 boardShips[ship.name] = ship;
                 return true;
@@ -37,7 +37,7 @@ const createGameboard = function( boardWidth = 10 ) {
         } else if(verticalCondition) {
             if(checkVerticalPlace(x, y, ship.getLength())) {
                 for(let i = y; y - i < ship.getLength() ; i--) {
-                    board[x][i] = ship.name;
+                    board[i][x] = ship.name;
                 }
                 boardShips[ship.name] = ship;
                 return true ;

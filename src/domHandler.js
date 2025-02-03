@@ -4,9 +4,11 @@ const domHandler = (function() {
 
     const renderBoard = function(domBoard, playerBoard) {
         playerBoard.forEach((ligne) => {
-            ligne.forEach(() => 
-                domBoard.appendChild(domBuilder.createSquare())
-            )
+            ligne.forEach((value) => {
+                if(value === 'miss') domBoard.appendChild(domBuilder.createMissSquare());
+                else if(value === 'hit') domBoard.appendChild(domBuilder.createHitSquare());
+                else domBoard.appendChild(domBuilder.createSquare())
+            })
         })
     }
 
@@ -32,8 +34,24 @@ const domBuilder = (function() {
         return myDiv;
     }
 
+    const createMissSquare = function() {
+        const myDiv = createSquare();
+        myDiv.classList.add('miss');
+        myDiv.textContent = 'x'
+        return myDiv;
+    }
+
+    const createHitSquare = function() {
+        const myDiv = createSquare();
+        myDiv.classList.add('hit');
+        myDiv.textContent = 'x';
+        return myDiv;
+    }
+
     return {
-        createSquare
+        createSquare,
+        createMissSquare,
+        createHitSquare
     }
 
 })()
