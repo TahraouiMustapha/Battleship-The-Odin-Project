@@ -56,6 +56,7 @@ header {
     flex-direction: column;
     align-items: center;
     gap: 16px;
+    position: relative;
 }
 
 .gameboard .player-name {
@@ -66,7 +67,7 @@ header {
 }
 
 .board {
-    margin-top: 16px;
+    margin-top: 32px;
     background-color: white;
     width: var(--board-widht);
     height: var(--board-widht);
@@ -78,6 +79,33 @@ header {
 .board, 
 .square {
     border: 1px solid black;
+}
+
+.board .column-numbers {
+    position: absolute;
+    transform: translateY(-100%);
+    width: var(--board-widht);
+    height: calc(var(--board-widht) / 14);
+    display: flex;
+}
+
+.board .ligne-numbers {
+    position: absolute;
+    transform: translateX(-100%);
+    height: var(--board-widht);
+    width: calc(var(--board-widht) / 14);
+    display: flex;
+    flex-direction: column;
+}
+
+.ligne-numbers span,
+.column-numbers span{
+    color: white;
+    font-weight: 500;
+    flex:1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* for test */
