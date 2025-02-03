@@ -67,7 +67,7 @@ header {
 }
 
 .board {
-    margin-top: 32px;
+    margin-top: 28px;
     background-color: white;
     width: var(--board-widht);
     height: var(--board-widht);

@@ -5,6 +5,8 @@ const createGameboard = function( boardWidth = 10 ) {
 
     const boardShips = {};
 
+    const getBoard = function() {return board}  ; 
+
     const checkHorizentalPlace = function (x, y, shipLength) {
         for(let i = x; i - x < shipLength; i++) {
             if(board[i][y]) return false;
@@ -76,6 +78,7 @@ const createGameboard = function( boardWidth = 10 ) {
         placeShip,
         receiveAttack, 
         isLoseAllShips,
+        getBoard,
     }
 }
 
