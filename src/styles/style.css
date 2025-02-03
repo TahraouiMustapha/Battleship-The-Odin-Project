@@ -42,7 +42,7 @@ header {
 .container {
     flex: 1;
     display: flex;
-    padding: 24px
+    padding: 24px;
 }
 
 .ships-port {
@@ -81,6 +81,10 @@ header {
     border: 1px solid black;
 }
 
+.board .square:hover{
+    background-color: rgb(207, 226, 243);
+}
+
 /* for missed square */
 .square.miss,
 .square.hit {
@@ -89,11 +93,11 @@ header {
     align-items: center;
 }
 
-.square.miss {
+.miss {
     font-size: 1.5em;
 }
 
-.square.hit {
+.hit {
     font-size: 2em;
     color: red;
 }
@@ -126,6 +130,39 @@ header {
     align-items: center;
 }
 
+/* for ships port */
+
+.ships-port {
+    background-color: aqua;
+    display: grid;
+    height: 400px;
+    margin: auto 24px;
+}
+
+.ships-port .ship {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.ship-body {
+    display: flex;
+    background-color: rgb(180, 180, 180);
+}
+
+
+.ship-body .square {
+    border: 0.5px solid black;      
+    width: 24px;
+    height: 24px;
+}
+
+
+
+
+
 /* for test */
 .container {
     background-color: var(--battle-color);
@@ -135,6 +172,6 @@ header {
     border: 1px solid bisque;   
 }
 
-.gameboard {
-    border: 1px solid blueviolet;   
+.ships-port > * {
+    border: 1px solid black;
 }

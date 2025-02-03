@@ -14,11 +14,13 @@ const coordinate = {
 player.gameboard.placeShip(ship, coordinate);
 player.gameboard.receiveAttack(0, 0)
 player.gameboard.receiveAttack(0, 1)
-player.gameboard.receiveAttack(0, 2)
 player.gameboard.receiveAttack(0, 3)
 console.log(player.gameboard.getBoard())
+
 const player2 = createPlayer();
 domHandler.renderFirstPlayerGameboard(player)
+domHandler.renderFirstShipsPort(player.gameboard.getShips())
+domHandler.renderSecondShipsPort(player2.gameboard.getShips())
 domHandler.renderSecondPlayerGameboard(player2)
 
 

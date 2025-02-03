@@ -1,6 +1,8 @@
 const domHandler = (function() {
     const firstBoard = document.querySelector('.first.board');
     const secondBoard = document.querySelector('.second.board');
+    const firstShipPort = document.querySelector('.first.ships-port');
+    const secondShipPort = document.querySelector('.second.ships-port');
 
     const renderBoard = function(domBoard, playerBoard) {
         playerBoard.forEach((ligne) => {
@@ -20,9 +22,29 @@ const domHandler = (function() {
         renderBoard(secondBoard, secondPlayer.gameboard.getBoard());
     }
 
+    const renderFirstShipsPort = function(playersShipsObj) {
+        const ships = Object.values(playersShipsObj) ;
+        ships.forEach((ship) => {
+            firstShipPort.appendChild(
+                domBuilder.createShip(ship)
+            )
+        })
+    }
+
+    const renderSecondShipsPort = function(playersShipsObj) {
+        const ships = Object.values(playersShipsObj) ;
+        ships.forEach((ship) => {
+            secondShipPort.appendChild(
+                domBuilder.createShip(ship)
+            )
+        })
+    }
+
     return {
         renderFirstPlayerGameboard,
-        renderSecondPlayerGameboard
+        renderSecondPlayerGameboard,
+        renderFirstShipsPort,
+        renderSecondShipsPort
     }
     
 })();
@@ -48,10 +70,49 @@ const domBuilder = (function() {
         return myDiv;
     }
 
+    const createShip = function(ship) {
+        const myDiv = document.createElement('div');
+        myDiv.classList.add('ship');
+
+        myDiv.appendChild( createShipName(ship.name) );
+        myDiv.appendChild( createShipBody(ship) );
+
+        return myDiv;
+    }
+
+    const createShipName = function(shipName) {
+        const myDiv = document.createElement('div');
+        myDiv.classList.add('ship-name');
+        myDiv.textContent = shipName;
+        return myDiv;
+    }
+
+    const createShipBody = function(ship) {
+        const myDiv = document.createElement('div');
+        myDiv.classList.add('ship-body');
+
+        let hitNumberTimes = ship.getHitNumberTimes();
+        for(let i = 0; i< ship.getLength(); i++ ) {
+            if(hitNumberTimes > 0) {
+                myDiv.appendChild(
+                    createHitSquare()
+                )
+                hitNumberTimes -= 1;
+            } else {
+                myDiv.appendChild(
+                    createSquare()
+                )
+            }
+        }
+
+        return myDiv;
+    }
+
     return {
         createSquare,
         createMissSquare,
-        createHitSquare
+        createHitSquare,
+        createShip
     }
 
 })()
