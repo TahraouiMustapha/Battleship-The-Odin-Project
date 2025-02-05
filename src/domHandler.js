@@ -1,3 +1,4 @@
+import { receiveAttack } from "./manageActions";
 import { createShip } from "./Ship";
 
 const domHandler = (function() {
@@ -7,12 +8,16 @@ const domHandler = (function() {
     const secondShipPort = document.querySelector('.second.ships-port');
 
     const renderBoard = function(domBoard, playerBoard) {
+        let x = 0, y;
         playerBoard.forEach((ligne) => {
+            y = 0;
             ligne.forEach((value) => {
-                if(value === 'miss') domBoard.appendChild(domBuilder.createMissSquare());
-                else if(value === 'hit') domBoard.appendChild(domBuilder.createHitSquare());
-                else domBoard.appendChild(domBuilder.createSquare())
+                if(value === 'miss') domBoard.appendChild(domBuilder.createMissSquare(x, y));
+                else if(value === 'hit') domBoard.appendChild(domBuilder.createHitSquare(x, y));
+                else domBoard.appendChild(domBuilder.createSquare(x, y))
+                y += 1;
             })
+            x += 1;
         })
     }
 
@@ -45,11 +50,11 @@ const domHandler = (function() {
 
     const populateShipsPort = function() {
         let ships = {
-            'Carrier': createShip(5, 'Carrier'),
+            'Carrier'   : createShip(5, 'Carrier'),
             'Battleship': createShip(4, 'Battleship'),
-            'Cruiser': createShip(3, 'Cruiser'),
-            'Submarine': createShip(3, 'Submarine'),
-            'Destroyer': createShip(2, 'Destroyer'),
+            'Cruiser'   : createShip(3, 'Cruiser'),
+            'Submarine' : createShip(3, 'Submarine'),
+            'Destroyer' : createShip(2, 'Destroyer'),
         }
 
         renderFirstShipsPort(ships);
@@ -67,23 +72,30 @@ const domHandler = (function() {
 })();
 
 const domBuilder = (function() {
-    const createSquare = function() {
+    const createSquare = function(x, y) {
         const myDiv = document.createElement('div');
         myDiv.classList.add('square');
+        myDiv.dataset.x = x
+        myDiv.dataset.y = y
+
+        myDiv.addEventListener('click', (e) => {
+            receiveAttack(e.target.dataset.x, e.target.dataset.y);
+        } );
+        
         return myDiv;
     }
 
-    const createMissSquare = function() {
-        const myDiv = createSquare();
+    const createMissSquare = function(x, y) {
+        const myDiv = createSquare(x, y);
         myDiv.classList.add('miss');
         myDiv.textContent = 'x'
         return myDiv;
     }
 
-    const createHitSquare = function() {
-        const myDiv = createSquare();
+    const createHitSquare = function(x, y) {
+        const myDiv = createSquare(x, y);
         myDiv.classList.add('hit');
-        myDiv.textContent = 'x';
+        myDiv.textContent = 'X';
         return myDiv;
     }
 
