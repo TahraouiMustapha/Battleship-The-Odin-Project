@@ -27,8 +27,8 @@ import { createShip } from "../src/Ship";
             }
 
             const wrongCoordinate= {
-                x: 6,
-                y: 0,
+                x: 1,
+                y: 6,
                 direction: 'H' 
             } 
             
@@ -42,7 +42,7 @@ import { createShip } from "../src/Ship";
             }
 
             const wrongVerticalCoordinate = {
-                x: 1,
+                x:6,
                 y: 3,
                 direction: 'V' 
             }
@@ -64,21 +64,21 @@ import { createShip } from "../src/Ship";
             expect(myBoard.placeShip(ship1, fitCoordinate)).toEqual(true);
             const ship2 = createShip(3, 'ship2');
             const wrongPlace = {
-                x: 3,
-                y: 0,
+                x: 1,
+                y: 3,
                 direction: 'H' 
             }
 
             expect(myBoard.placeShip(ship2, wrongPlace)).toEqual(false);
             const wrongPlace2 = {
-                x: 0,
-                y: 0,
+                x: 1,
+                y: 2,
                 direction: 'H' 
             }
             expect(myBoard.placeShip(ship2, wrongPlace2)).toEqual(false);
 
             const rightPlaceOnVertical = {
-                x: 0,
+                x: 2,
                 y: 2,
                 direction: 'V' 
             }
@@ -99,7 +99,7 @@ import { createShip } from "../src/Ship";
             const ship2 = createShip(3, 'ship2');
             const wrongPlace = {
                 x: 1,
-                y: 5,
+                y: 7,
                 direction: 'V' 
             }
 
@@ -121,7 +121,7 @@ import { createShip } from "../src/Ship";
             expect(myBoard.receiveAttack(7, 7)).toEqual(false);
             expect(myBoard.receiveAttack(1, 2)).toEqual(false);
             expect(myBoard.receiveAttack(2, 2)).toEqual(true);
-            expect(myBoard.receiveAttack(4, 2)).toEqual(true);
+            expect(myBoard.receiveAttack(2, 3)).toEqual(true);
         })
 
         test('sends the \'hit\' function to the correct ship', () => {
@@ -136,7 +136,7 @@ import { createShip } from "../src/Ship";
             expect(myHittedShip.getHitNumberTimes()).toBe(0);
             myBoard.receiveAttack(0, 0);
             expect(myHittedShip.getHitNumberTimes()).toBe(1);
-            myBoard.receiveAttack(2, 0); // hit the ship along its length
+            myBoard.receiveAttack(0, 2); // hit the ship along its length
             expect(myHittedShip.getHitNumberTimes()).toBe(2);
         })
 
@@ -151,9 +151,9 @@ import { createShip } from "../src/Ship";
 
             testBoard.placeShip(myHittedShip, coordinate);
             expect(testBoard.receiveAttack(0, 0)).toEqual(true); 
-            expect(testBoard.receiveAttack(0, 3)).toEqual(false);
+            expect(testBoard.receiveAttack(3, 3)).toEqual(false);
             expect(testBoard.receiveAttack(0, 0)).toEqual(false); // shot on hitted place
-            expect(testBoard.receiveAttack(0, 3)).toEqual(false); // shot on misssed shot
+            expect(testBoard.receiveAttack(3, 3)).toEqual(false); // shot on misssed shot
         })
     })
 
@@ -183,10 +183,10 @@ import { createShip } from "../src/Ship";
             myBoard.placeShip(ship1, coordinate1);
             myBoard.placeShip(ship2, coordinate2);
             myBoard.receiveAttack(2, 6);
-            myBoard.receiveAttack(2, 5); // ship1 have sunk
+            myBoard.receiveAttack(3, 6); // ship1 have sunk
             expect(myBoard.isLoseAllShips()).toEqual(false);
             myBoard.receiveAttack(4, 5);
-            myBoard.receiveAttack(4, 4); // ship2 have sunk
+            myBoard.receiveAttack(5, 5); // ship2 have sunk
             expect(myBoard.isLoseAllShips()).toEqual(true);
         })
 
