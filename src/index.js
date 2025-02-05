@@ -19,9 +19,8 @@ console.log(player.gameboard.getBoard())
 
 const player2 = createPlayer();
 domHandler.renderFirstPlayerGameboard(player)
-domHandler.renderFirstShipsPort(player.gameboard.getShips())
-domHandler.renderSecondShipsPort(player2.gameboard.getShips())
 domHandler.renderSecondPlayerGameboard(player2)
+domHandler.populateShipsPort();
 
 
 

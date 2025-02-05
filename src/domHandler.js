@@ -1,3 +1,5 @@
+import { createShip } from "./Ship";
+
 const domHandler = (function() {
     const firstBoard = document.querySelector('.first.board');
     const secondBoard = document.querySelector('.second.board');
@@ -22,17 +24,18 @@ const domHandler = (function() {
         renderBoard(secondBoard, secondPlayer.gameboard.getBoard());
     }
 
-    const renderFirstShipsPort = function(playersShipsObj) {
+    const renderFirstShipsPort = function(playersShipsObj) { // to update my ships's states and render second too
         const ships = Object.values(playersShipsObj) ;
         ships.forEach((ship) => {
             firstShipPort.appendChild(
                 domBuilder.createShip(ship)
             )
         })
+
     }
 
     const renderSecondShipsPort = function(playersShipsObj) {
-        const ships = Object.values(playersShipsObj) ;
+        const  ships = Object.values(playersShipsObj) ;        
         ships.forEach((ship) => {
             secondShipPort.appendChild(
                 domBuilder.createShip(ship)
@@ -40,9 +43,23 @@ const domHandler = (function() {
         })
     }
 
+    const populateShipsPort = function() {
+        let ships = {
+            'Carrier': createShip(5, 'Carrier'),
+            'Battleship': createShip(4, 'Battleship'),
+            'Cruiser': createShip(3, 'Cruiser'),
+            'Submarine': createShip(3, 'Submarine'),
+            'Destroyer': createShip(2, 'Destroyer'),
+        }
+
+        renderFirstShipsPort(ships);
+        renderSecondShipsPort(ships);
+    }
+
     return {
         renderFirstPlayerGameboard,
         renderSecondPlayerGameboard,
+        populateShipsPort,
         renderFirstShipsPort,
         renderSecondShipsPort
     }

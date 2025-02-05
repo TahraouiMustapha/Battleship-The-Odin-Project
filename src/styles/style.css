@@ -133,7 +133,7 @@ header {
 /* for ships port */
 
 .ships-port {
-    background-color: aqua;
+    color: white;
     display: grid;
     height: 400px;
     margin: auto 24px;
@@ -159,19 +159,13 @@ header {
     height: 24px;
 }
 
-
+.first.ships-port {
+    margin-right: -15px;
+}
 
 
 
 /* for test */
 .container {
     background-color: var(--battle-color);
-}
-
-.ships-port {
-    border: 1px solid bisque;   
-}
-
-.ships-port > * {
-    border: 1px solid black;
 }
