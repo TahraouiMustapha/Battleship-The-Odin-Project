@@ -8,6 +8,9 @@ const domHandler = (function() {
     const secondShipPort = document.querySelector('.second.ships-port');
 
     const renderBoard = function(domBoard, playerBoard) {
+        domBoard.innerHTML = ''
+        domBoard.appendChild( domBuilder.createColumnsNums() );
+        domBoard.appendChild( domBuilder.createLigneNums() );
         let x = 0, y;
         playerBoard.forEach((ligne) => {
             y = 0;
@@ -31,6 +34,7 @@ const domHandler = (function() {
 
     const renderFirstShipsPort = function(playersShipsObj) { // to update my ships's states and render second too
         const ships = Object.values(playersShipsObj) ;
+        firstShipPort.innerHTML = ''
         ships.forEach((ship) => {
             firstShipPort.appendChild(
                 domBuilder.createShip(ship)
@@ -40,7 +44,8 @@ const domHandler = (function() {
     }
 
     const renderSecondShipsPort = function(playersShipsObj) {
-        const  ships = Object.values(playersShipsObj) ;        
+        const  ships = Object.values(playersShipsObj) ;   
+        secondShipPort.innerHTML = ''     
         ships.forEach((ship) => {
             secondShipPort.appendChild(
                 domBuilder.createShip(ship)
@@ -140,11 +145,39 @@ const domBuilder = (function() {
         return myDiv;
     }
 
+    const createColumnsNums = function() {
+        const myDiv = document.createElement('div');
+        myDiv.classList.add('column-numbers');
+        const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ];
+        numbers.forEach((num) => {
+            let span = document.createElement('span');
+            span.textContent = num;
+            myDiv.appendChild(span);
+        })
+
+        return myDiv;
+    }
+
+    const createLigneNums = function() {
+        const myDiv = document.createElement('div');
+        myDiv.classList.add('ligne-numbers');
+        const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ];
+        numbers.forEach((num) => {
+            let span = document.createElement('span');
+            span.textContent = num;
+            myDiv.appendChild(span);
+        })
+    
+        return myDiv;
+    }
+
     return {
         createSquare,
         createMissSquare,
         createHitSquare,
-        createShip
+        createShip, 
+        createColumnsNums,
+        createLigneNums,
     }
 
 })()
