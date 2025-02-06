@@ -79,7 +79,10 @@ const domBuilder = (function() {
         myDiv.dataset.y = y
 
         myDiv.addEventListener('click', (e) => {
-            receiveAttack(e.target.dataset.x, e.target.dataset.y);
+            let boardClicked = e.target.closest('.board');
+            receiveAttack(e.target.dataset.x, 
+                          e.target.dataset.y, 
+                          boardClicked      );
         } );
         
         return myDiv;
