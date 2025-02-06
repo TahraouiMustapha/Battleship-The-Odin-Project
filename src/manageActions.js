@@ -63,13 +63,19 @@ const receiveAttack = function(x, y, boardClicked) {
     }
     // switch turns
     switchTurns();
+    logPlayersTurn(turn);
 }
 
 
-function switchTurns() {
+const switchTurns = function() {
     enemy = turn;
     turn = turn === 'first' ? 'second': 'first';
 }
+
+const logPlayersTurn = function(playerTurn) {
+    console.log(playerTurn)
+}
+
 
 export { 
     receiveAttack , 
