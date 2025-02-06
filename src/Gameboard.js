@@ -63,10 +63,10 @@ const createGameboard = function( boardWidth = 10 ) {
             sendHitFunction(shipsName);
             board[x][y] = 'hit';
             return true;
-        } else {
+        } else if(board[x][y] !== 'hit'){
             board[x][y] = 'miss';
-            return false;
         }
+        return false;
     }
 
     const isLoseAllShips = () => {

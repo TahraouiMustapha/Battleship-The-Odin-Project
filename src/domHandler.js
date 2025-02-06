@@ -44,7 +44,7 @@ const domHandler = (function() {
     }
 
     const renderSecondShipsPort = function(playersShipsObj) {
-        const  ships = Object.values(playersShipsObj) ;   
+        const  ships = Object.values(playersShipsObj) ;
         secondShipPort.innerHTML = ''     
         ships.forEach((ship) => {
             secondShipPort.appendChild(

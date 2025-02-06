@@ -15,6 +15,13 @@ let ships = [
     createShip(2, 'Destroyer') 
 ]
 
+let ships2 = [
+    createShip(5, 'Carrier'),   
+    createShip(4, 'Battleship'),
+    createShip(3, 'Cruiser'),   
+    createShip(3, 'Submarine'), 
+    createShip(2, 'Destroyer') 
+]
 
 const startGame = function() {
     player = {
@@ -29,15 +36,13 @@ const startGame = function() {
     player['first'].gameboard.placeShip(ships[3], {x: 3, y: 2, direction: 'H'});
     player['first'].gameboard.placeShip(ships[4], {x: 4, y: 2, direction: 'H'});
     
-    console.log(player['first'].gameboard.getBoard())
     
-    player['second'].gameboard.placeShip(ships[0], {x: 0, y: 0, direction: 'V'});
-    player['second'].gameboard.placeShip(ships[1], {x: 0, y: 1, direction: 'V'});
-    player['second'].gameboard.placeShip(ships[2], {x: 0, y: 2, direction: 'V'});
-    player['second'].gameboard.placeShip(ships[3], {x: 0, y: 3, direction: 'V'});
-    player['second'].gameboard.placeShip(ships[4], {x: 0, y: 4, direction: 'V'});
+    player['second'].gameboard.placeShip(ships2[0], {x: 0, y: 0, direction: 'V'});
+    player['second'].gameboard.placeShip(ships2[1], {x: 0, y: 1, direction: 'V'});
+    player['second'].gameboard.placeShip(ships2[2], {x: 0, y: 2, direction: 'V'});
+    player['second'].gameboard.placeShip(ships2[3], {x: 0, y: 3, direction: 'V'});
+    player['second'].gameboard.placeShip(ships2[4], {x: 0, y: 4, direction: 'V'});
     
-    console.log(player['second'].gameboard.getBoard())
 
     domHandler.renderFirstPlayerGameboard(player['first'])
     domHandler.renderSecondPlayerGameboard(player['second'])
