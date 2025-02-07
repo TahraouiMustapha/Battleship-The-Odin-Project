@@ -1,6 +1,14 @@
 import { receiveAttack } from "./manageActions";
 import { createShip } from "./Ship";
 
+const shipsByDefault = {
+    'Carrier'   : createShip(5, 'Carrier'),
+    'Battleship': createShip(4, 'Battleship'),
+    'Cruiser'   : createShip(3, 'Cruiser'),
+    'Submarine' : createShip(3, 'Submarine'),
+    'Destroyer' : createShip(2, 'Destroyer'),
+}
+
 const domHandler = (function() {
     const firstBoard = document.querySelector('.first.board');
     const secondBoard = document.querySelector('.second.board');
@@ -26,14 +34,17 @@ const domHandler = (function() {
 
     const renderFirstPlayerGameboard = function(firstPlayer) {
         renderBoard(firstBoard, firstPlayer.gameboard.getBoard());
+        renderFirstShipsPort(firstPlayer.gameboard.getShips());
     }
 
     const renderSecondPlayerGameboard = function(secondPlayer) {
         renderBoard(secondBoard, secondPlayer.gameboard.getBoard());
+        renderSecondShipsPort(secondPlayer.gameboard.getShips());
     }
 
     const renderFirstShipsPort = function(playersShipsObj) { // to update my ships's states and render second too
-        const ships = Object.values(playersShipsObj) ;
+        let  ships = Object.values(playersShipsObj) ;
+        if(!ships.length) ships = shipsByDefault;
         firstShipPort.innerHTML = ''
         ships.forEach((ship) => {
             firstShipPort.appendChild(
@@ -44,7 +55,8 @@ const domHandler = (function() {
     }
 
     const renderSecondShipsPort = function(playersShipsObj) {
-        const  ships = Object.values(playersShipsObj) ;
+        let  ships = Object.values(playersShipsObj) ;
+        if(!ships.length) ships = shipsByDefault;
         secondShipPort.innerHTML = ''     
         ships.forEach((ship) => {
             secondShipPort.appendChild(
@@ -53,25 +65,10 @@ const domHandler = (function() {
         })
     }
 
-    const populateShipsPort = function() {
-        let ships = {
-            'Carrier'   : createShip(5, 'Carrier'),
-            'Battleship': createShip(4, 'Battleship'),
-            'Cruiser'   : createShip(3, 'Cruiser'),
-            'Submarine' : createShip(3, 'Submarine'),
-            'Destroyer' : createShip(2, 'Destroyer'),
-        }
-
-        renderFirstShipsPort(ships);
-        renderSecondShipsPort(ships);
-    }
 
     return {
-        renderFirstPlayerGameboard,
-        renderSecondPlayerGameboard,
-        populateShipsPort,
-        renderFirstShipsPort,
-        renderSecondShipsPort
+        'first' : renderFirstPlayerGameboard,
+        'second' : renderSecondPlayerGameboard,
     }
     
 })();

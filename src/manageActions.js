@@ -29,7 +29,7 @@ const startGame = function() {
         'second' : createComputerPlayer() 
     }
 
-    // predertimined coordinates for first player
+    // predertimined coordinates for players' gameboards
     player['first'].gameboard.placeShip(ships[0], {x: 0, y: 2, direction: 'H'});
     player['first'].gameboard.placeShip(ships[1], {x: 1, y: 2, direction: 'H'});
     player['first'].gameboard.placeShip(ships[2], {x: 2, y: 2, direction: 'H'});
@@ -44,9 +44,8 @@ const startGame = function() {
     player['second'].gameboard.placeShip(ships2[4], {x: 0, y: 4, direction: 'V'});
     
 
-    domHandler.renderFirstPlayerGameboard(player['first'])
-    domHandler.renderSecondPlayerGameboard(player['second'])
-    domHandler.populateShipsPort();
+    domHandler['first'](player['first'])
+    domHandler['second'](player['second'])
 }
 
 const receiveAttack = function(x, y, boardClicked) {
@@ -63,7 +62,6 @@ const receiveAttack = function(x, y, boardClicked) {
         if(turn === 'second') {
             logPlayersTurn(turn);
             let computerChoice = player[turn].attack( player[enemy].gameboard )
-            console.log('computer choose :', computerChoice);
             // shot on the player's board
             player[enemy].gameboard.receiveAttack(computerChoice[0], computerChoice[1]);
             renderDom(enemy);
@@ -76,13 +74,7 @@ const receiveAttack = function(x, y, boardClicked) {
 
 
 const renderDom = function(enemy) {
-    if(enemy === 'first') {
-        domHandler.renderFirstPlayerGameboard(player[enemy]);
-        domHandler.renderFirstShipsPort(player[enemy].gameboard.getShips());
-    } else {
-        domHandler.renderSecondPlayerGameboard(player[enemy]);
-        domHandler.renderSecondShipsPort(player[enemy].gameboard.getShips());
-    }
+    domHandler[enemy](player[enemy]);
 }
 
 const switchTurns = function() {
