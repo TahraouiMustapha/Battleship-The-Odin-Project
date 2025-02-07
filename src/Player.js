@@ -9,8 +9,8 @@ const createPlayer = (name = '') => {
 
 const createComputerPlayer = () => Object.assign(
     createPlayer('Computer'),
-    randomAttacker
-)
+    randomAttacker()
+);
 
 const randomAttacker = () => ({
     attack: function(enemyBoard) {
