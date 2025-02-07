@@ -8,6 +8,9 @@ const createGameboard = function( boardWidth = 10 ) {
     const getBoard = function() { return board      }  ; 
     const getShips = function() { return boardShips }  ; 
 
+    const isMissed = function(x, y) { return board[x][y] === 'miss'}
+    const isHitted = function(x, y) { return board[x][y] === 'hit'}
+
     const checkHorizentalPlace = function (x, y, shipLength) {
         for(let i = y; i - y < shipLength; i++) {
             if(board[x][i]) return false;
@@ -82,7 +85,9 @@ const createGameboard = function( boardWidth = 10 ) {
         receiveAttack, 
         isLoseAllShips,
         getBoard,
-        getShips
+        getShips,
+        isMissed, 
+        isHitted
     }
 }
 
