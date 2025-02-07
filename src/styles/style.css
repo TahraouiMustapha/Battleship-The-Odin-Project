@@ -81,8 +81,10 @@ header {
     border: 1px solid black;
 }
 
-.board .square:hover{
-    background-color: rgb(207, 226, 243);
+.second.board .square:hover, 
+.first .ship-square , 
+.hit {
+    background-color: rgb(160, 204, 243);
 }
 
 /* for missed square */

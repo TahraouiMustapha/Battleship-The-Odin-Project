@@ -25,6 +25,7 @@ const domHandler = (function() {
             ligne.forEach((value) => {
                 if(value === 'miss') domBoard.appendChild(domBuilder.createMissSquare(x, y));
                 else if(value === 'hit') domBoard.appendChild(domBuilder.createHitSquare(x, y));
+                else if(value != '') domBoard.appendChild(domBuilder.createShipSquare(x, y));
                 else domBoard.appendChild(domBuilder.createSquare(x, y))
                 y += 1;
             })
@@ -142,6 +143,12 @@ const domBuilder = (function() {
         return myDiv;
     }
 
+    const createShipSquare = function(x, y) {
+        const myDiv = createSquare(x, y);
+        myDiv.classList.add('ship-square');
+        return myDiv;
+    }
+
     const createColumnsNums = function() {
         const myDiv = document.createElement('div');
         myDiv.classList.add('column-numbers');
@@ -175,6 +182,7 @@ const domBuilder = (function() {
         createShip, 
         createColumnsNums,
         createLigneNums,
+        createShipSquare
     }
 
 })()
