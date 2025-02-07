@@ -1,5 +1,5 @@
 import { domHandler } from "./domHandler";
-import { createPlayer } from "./Player";
+import { createComputerPlayer, createPlayer } from "./Player";
 import { createShip } from "./Ship";
 
 let player = {}
@@ -26,7 +26,7 @@ let ships2 = [
 const startGame = function() {
     player = {
         'first'  : createPlayer('mohamed'),
-        'second' : createPlayer('jamal')
+        'second' : createComputerPlayer() 
     }
 
     // predertimined coordinates for first player
@@ -56,20 +56,34 @@ const receiveAttack = function(x, y, boardClicked) {
     let attackResult = player[enemy].gameboard.receiveAttack(x, y);
     
     if(attackResult) {
-        if(enemy === 'first') {
-            domHandler.renderFirstPlayerGameboard(player[enemy]);
-            domHandler.renderFirstShipsPort(player[enemy].gameboard.getShips());
-        } else {
-            domHandler.renderSecondPlayerGameboard(player[enemy]);
-            domHandler.renderSecondShipsPort(player[enemy].gameboard.getShips());
-        }
+        renderDom(enemy);
         // switch turns
         switchTurns();
+        // if the computer's turn
+        if(turn === 'second') {
+            logPlayersTurn(turn);
+            let computerChoice = player[turn].attack( player[enemy].gameboard )
+            console.log('computer choose :', computerChoice);
+            // shot on the player's board
+            player[enemy].gameboard.receiveAttack(computerChoice[0], computerChoice[1]);
+            renderDom(enemy);
+            switchTurns()
+        }
     }
 
     logPlayersTurn(turn);
 }
 
+
+const renderDom = function(enemy) {
+    if(enemy === 'first') {
+        domHandler.renderFirstPlayerGameboard(player[enemy]);
+        domHandler.renderFirstShipsPort(player[enemy].gameboard.getShips());
+    } else {
+        domHandler.renderSecondPlayerGameboard(player[enemy]);
+        domHandler.renderSecondShipsPort(player[enemy].gameboard.getShips());
+    }
+}
 
 const switchTurns = function() {
     enemy = turn;
