@@ -39,7 +39,10 @@ const startGame = function() {
         'second' : createComputerPlayer() 
     }
 
-    // predertimined coordinates for players' gameboards
+    // // predertimined coordinates for players' gameboards
+    // ships.forEach((ship) => {
+    //     player['first'].gameboard.randomShipPlace(ship);
+    // })
     player['first'].gameboard.placeShip(ships[0], {x: 0, y: 2, direction: 'H'});
     player['first'].gameboard.placeShip(ships[1], {x: 1, y: 2, direction: 'H'});
     player['first'].gameboard.placeShip(ships[2], {x: 2, y: 2, direction: 'H'});
@@ -64,7 +67,7 @@ const receiveAttack = function(x, y, boardClicked) {
     
     // the enemy's board
     let attackResult = player[enemy].gameboard.receiveAttack(x, y);
-    if(player[enemy].gameboard.isLoseAllShips()) { 
+    if( HaveAllBeenSunk(player[enemy]) ) { 
         gameState.finishGame();
         logsWinner(player[turn].name)
     }
@@ -79,7 +82,7 @@ const receiveAttack = function(x, y, boardClicked) {
             let computerChoice = player[turn].attack( player[enemy].gameboard )
             // shot on the player's board
             player[enemy].gameboard.receiveAttack(computerChoice[0], computerChoice[1]);
-            if(player[enemy].gameboard.isLoseAllShips()) { 
+            if( HaveAllBeenSunk(player[enemy]) ) { 
                 gameState.finishGame();
                 logsWinner(player[turn].name) 
             }
@@ -107,6 +110,10 @@ const logPlayersTurn = function(playerTurn) {
 
 const logsWinner = function(winner) {
     console.log(winner , ' is Win ');
+}
+
+const HaveAllBeenSunk = function(player) {
+    return player.gameboard.isLoseAllShips();
 }
 
 

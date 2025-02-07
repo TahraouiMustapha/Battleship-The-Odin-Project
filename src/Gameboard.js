@@ -79,6 +79,13 @@ const createGameboard = function( boardWidth = 10 ) {
         return myShips.every((ship) => ship.isSunk() );
     }
 
+    const randomShipPlace = function(ship) {
+        let result;
+        do {
+            result = placeShip(ship, randomCoordinate());
+        } while(!result);
+    }
+ 
 
     return {
         placeShip,
@@ -87,8 +94,28 @@ const createGameboard = function( boardWidth = 10 ) {
         getBoard,
         getShips,
         isMissed, 
-        isHitted
+        isHitted, 
+        randomShipPlace
     }
 }
+
+const randomCoordinate = function() {
+    const randomIndex = function () {
+        return Math.floor( Math.random() * 10 );
+    }
+
+    const randomDirection = function() {
+        let randomBinary = Math.floor ( (Math.random() * 10) % 2 );
+        return randomBinary ? 'H' : 'V';
+    }
+
+    return {
+        x : randomIndex(),
+        y : randomIndex(),
+        direction: randomDirection()
+    }
+}
+
+
 
 export { createGameboard };

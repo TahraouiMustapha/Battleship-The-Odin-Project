@@ -1,13 +1,13 @@
 import { receiveAttack } from "./manageActions";
 import { createShip } from "./Ship";
 
-const shipsByDefault = {
-    'Carrier'   : createShip(5, 'Carrier'),
-    'Battleship': createShip(4, 'Battleship'),
-    'Cruiser'   : createShip(3, 'Cruiser'),
-    'Submarine' : createShip(3, 'Submarine'),
-    'Destroyer' : createShip(2, 'Destroyer'),
-}
+const shipsByDefault = [
+     createShip(5, 'Carrier'),
+     createShip(4, 'Battleship'),
+     createShip(3, 'Cruiser'),
+     createShip(3, 'Submarine'),
+     createShip(2, 'Destroyer'),
+]
 
 const domHandler = (function() {
     const firstBoard = document.querySelector('.first.board');
@@ -43,14 +43,14 @@ const domHandler = (function() {
         renderSecondShipsPort(secondPlayer.gameboard.getShips());
     }
 
-    const renderFirstShipsPort = function(playersShipsObj) { // to update my ships's states and render second too
+    const renderFirstShipsPort = function(playersShipsObj) { 
         let  ships = Object.values(playersShipsObj) ;
         if(!ships.length) ships = shipsByDefault;
         firstShipPort.innerHTML = ''
         ships.forEach((ship) => {
             firstShipPort.appendChild(
                 domBuilder.createShip(ship)
-            )
+            )   
         })
 
     }
