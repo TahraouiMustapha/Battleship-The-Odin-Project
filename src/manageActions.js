@@ -53,16 +53,20 @@ const receiveAttack = function(x, y, boardClicked) {
     if(boardClicked.classList.contains(turn))  return ; // the player's board
     
     // the enemy's board
-    player[enemy].gameboard.receiveAttack(x, y)
-    if(enemy === 'first') {
-        domHandler.renderFirstPlayerGameboard(player[enemy]);
-        domHandler.renderFirstShipsPort(player[enemy].gameboard.getShips());
-    } else {
-        domHandler.renderSecondPlayerGameboard(player[enemy]);
-        domHandler.renderSecondShipsPort(player[enemy].gameboard.getShips());
+    let attackResult = player[enemy].gameboard.receiveAttack(x, y);
+    
+    if(attackResult) {
+        if(enemy === 'first') {
+            domHandler.renderFirstPlayerGameboard(player[enemy]);
+            domHandler.renderFirstShipsPort(player[enemy].gameboard.getShips());
+        } else {
+            domHandler.renderSecondPlayerGameboard(player[enemy]);
+            domHandler.renderSecondShipsPort(player[enemy].gameboard.getShips());
+        }
+        // switch turns
+        switchTurns();
     }
-    // switch turns
-    switchTurns();
+
     logPlayersTurn(turn);
 }
 
