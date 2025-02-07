@@ -108,7 +108,11 @@ import { createShip } from "../src/Ship";
     })
 
     describe('receiveAttack ', () => {
-        const myBoard = createGameboard();
+        let myBoard ;
+        beforeEach(() => {
+            myBoard = createGameboard();
+        })
+
         test('It determines wether or not the attack hit a ship.', () => {
             const ship = createShip(3, 'ship');
             const coordinate = {
@@ -118,10 +122,10 @@ import { createShip } from "../src/Ship";
             }
 
             myBoard.placeShip(ship, coordinate);
-            expect(myBoard.receiveAttack(7, 7)).toEqual(false);
-            expect(myBoard.receiveAttack(1, 2)).toEqual(false);
-            expect(myBoard.receiveAttack(2, 2)).toEqual(true);
-            expect(myBoard.receiveAttack(2, 3)).toEqual(true);
+            expect(myBoard.receiveAttack(7, 7)).toEqual('miss');
+            expect(myBoard.receiveAttack(1, 2)).toEqual('miss');
+            expect(myBoard.receiveAttack(2, 2)).toEqual('hit');
+            expect(myBoard.receiveAttack(2, 3)).toEqual('hit');
         })
 
         test('sends the \'hit\' function to the correct ship', () => {
@@ -141,7 +145,6 @@ import { createShip } from "../src/Ship";
         })
 
         test('Can\'t shot on missed shot or hitted places', ()=> {
-            const testBoard = createGameboard();
             const myHittedShip = createShip(4, 'myHittedShip');
             const coordinate = {
                 x: 0, 
@@ -149,11 +152,11 @@ import { createShip } from "../src/Ship";
                 direction: 'H'
             }
 
-            testBoard.placeShip(myHittedShip, coordinate);
-            expect(testBoard.receiveAttack(0, 0)).toEqual(true); 
-            expect(testBoard.receiveAttack(3, 3)).toEqual(false);
-            expect(testBoard.receiveAttack(0, 0)).toEqual(false); // shot on hitted place
-            expect(testBoard.receiveAttack(3, 3)).toEqual(false); // shot on misssed shot
+            myBoard.placeShip(myHittedShip, coordinate);
+            expect(myBoard.receiveAttack(0, 0)).toEqual('hit'); 
+            expect(myBoard.receiveAttack(3, 3)).toEqual('miss');
+            expect(myBoard.receiveAttack(0, 0)).toEqual(false); // shot on hitted place
+            expect(myBoard.receiveAttack(3, 3)).toEqual(false); // shot on misssed shot
         })
     })
 

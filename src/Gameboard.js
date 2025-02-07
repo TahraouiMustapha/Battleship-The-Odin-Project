@@ -54,21 +54,23 @@ const createGameboard = function( boardWidth = 10 ) {
     }
     
     const receiveAttack = function(x, y) {
-        if(
-            board[x][y] && 
-            board[x][y] !== 'miss' &&
-            board[x][y] !== 'hit'
-        ) {
-            let shipsName = board[x][y];
-            sendHitFunction(shipsName);
-            board[x][y] = 'hit';
-            return true;
-        } else if(board[x][y] !== 'hit'){
+
+        if(!board[x][y]) {
             board[x][y] = 'miss';
+            return 'miss';
+        } else if( board[x][y] &&
+                    board[x][y] !== 'miss' &&
+                    board[x][y] !== 'hit'
+          ) {
+                let shipsName = board[x][y];
+                sendHitFunction(shipsName);
+                board[x][y] = 'hit';
+                return 'hit';    
         }
+
         return false;
     }
-
+    
     const isLoseAllShips = () => {
         const myShips = Object.values(boardShips);
         return myShips.every((ship) => ship.isSunk() );
