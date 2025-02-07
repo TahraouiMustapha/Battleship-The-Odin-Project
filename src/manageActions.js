@@ -4,6 +4,16 @@ import { createShip } from "./Ship";
 
 let player = {}
 
+let gameState = {
+    end: false,
+    isEnd: function() {
+        return this.end;
+    },
+    finishGame: function() {
+        this.end = true
+    }
+}
+
 let turn = 'first', enemy = 'second';
 
 
@@ -49,10 +59,15 @@ const startGame = function() {
 }
 
 const receiveAttack = function(x, y, boardClicked) {
+    if(gameState.isEnd()) return ;
     if(boardClicked.classList.contains(turn))  return ; // the player's board
     
     // the enemy's board
     let attackResult = player[enemy].gameboard.receiveAttack(x, y);
+    if(player[enemy].gameboard.isLoseAllShips()) { 
+        gameState.finishGame();
+        logsWinner(player[turn].name)
+    }
     
     if(attackResult) {
         renderDom(enemy);
@@ -64,6 +79,10 @@ const receiveAttack = function(x, y, boardClicked) {
             let computerChoice = player[turn].attack( player[enemy].gameboard )
             // shot on the player's board
             player[enemy].gameboard.receiveAttack(computerChoice[0], computerChoice[1]);
+            if(player[enemy].gameboard.isLoseAllShips()) { 
+                gameState.finishGame();
+                logsWinner(player[turn].name) 
+            }
             renderDom(enemy);
             switchTurns()
         }
@@ -84,6 +103,10 @@ const switchTurns = function() {
 
 const logPlayersTurn = function(playerTurn) {
     console.log(playerTurn)
+}
+
+const logsWinner = function(winner) {
+    console.log(winner , ' is Win ');
 }
 
 
