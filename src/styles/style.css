@@ -41,17 +41,17 @@ header {
 
 .container {
     flex: 1;
-    display: flex;
+    display: grid;
+    grid-template-columns: 190px 1fr 1fr 190px ;
+    justify-items: center;
+    align-items: center;
     padding: 24px;
+    background-color: var(--battle-color);
 }
 
-.ships-port {
-    width: 170px;
-}
 
 .gameboard {
     --board-widht: 480px;
-    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -60,6 +60,7 @@ header {
 }
 
 .gameboard .player-name {
+    margin-top: -40px;
     font-size: 32px;
     font-weight: 600;
     letter-spacing: 1.5px;
@@ -170,9 +171,39 @@ header {
     margin-right: -15px;
 }
 
+/* before start the game */
+.second.gameboard , 
+.second.ships-port {
+    display: none;
+}
 
+.get-ready {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+    color: white;
+}
 
-/* for test */
-.container {
-    background-color: var(--battle-color);
+.get-ready .title {
+    font-size: 3em;
+    font-weight: 600;
+}
+
+.get-ready .info {
+    font-size: 1.3em;
+}
+
+.get-ready button {
+    padding: 8px 24px;
+    border-radius: 16px;
+    border: none;
+    font-size: 1.5em;
+    font-weight: 500;
+    background-color: white;
+    cursor: pointer;
+}
+
+.get-ready button:hover {
+    background-color: rgba(255, 255, 255, 0.842);
 }
