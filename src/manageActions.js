@@ -17,42 +17,50 @@ let gameState = {
 let turn = 'first', enemy = 'second';
 
 
-let ships = [
-    createShip(5, 'Carrier'),   
-    createShip(4, 'Battleship'),
-    createShip(3, 'Cruiser'),   
-    createShip(3, 'Submarine'), 
-    createShip(2, 'Destroyer') 
-]
+let ships ={
+    'first': [
+        createShip(5, 'Carrier'),   
+        createShip(4, 'Battleship'),
+        createShip(3, 'Cruiser'),   
+        createShip(3, 'Submarine'), 
+        createShip(2, 'Destroyer') 
+    ]
+      ,  
+    'second' : [
+        createShip(5, 'Carrier'),   
+        createShip(4, 'Battleship'),
+        createShip(3, 'Cruiser'),   
+        createShip(3, 'Submarine'), 
+        createShip(2, 'Destroyer')
+    ]
 
-let ships2 = [
-    createShip(5, 'Carrier'),   
-    createShip(4, 'Battleship'),
-    createShip(3, 'Cruiser'),   
-    createShip(3, 'Submarine'), 
-    createShip(2, 'Destroyer') 
-]
+} 
 
-const startGame = function() {
+const getReady = function() {
     player = {
         'first'  : createPlayer('mohamed'),
         'second' : createComputerPlayer() 
     }
 
+    let firstPlayer = player['first'];
+    // get random btn and add event list to it
+    const randomBtn = domHandler.getRandomBtn();
+    randomBtn.addEventListener('click', () => {
+        console.log('random')
+        firstPlayer.gameboard.resetBoard();
+        randomizeShips('first');
+        domHandler['first'](firstPlayer)
+    })
+
+}
+
+const startGame = function() {
+
     // // predertimined coordinates for players' gameboards
-    // ships.forEach((ship) => {
-    //     player['first'].gameboard.randomShipPlace(ship);
-    // })
-
     
     
-    player['second'].gameboard.placeShip(ships2[0], {x: 0, y: 0, direction: 'V'});
-    player['second'].gameboard.placeShip(ships2[1], {x: 0, y: 1, direction: 'V'});
-    player['second'].gameboard.placeShip(ships2[2], {x: 0, y: 2, direction: 'V'});
-    player['second'].gameboard.placeShip(ships2[3], {x: 0, y: 3, direction: 'V'});
-    player['second'].gameboard.placeShip(ships2[4], {x: 0, y: 4, direction: 'V'});
     
-
+    randomizeShips('second');
     domHandler['first'](player['first'])
     domHandler['second'](player['second'])
 }
@@ -95,6 +103,12 @@ const renderDom = function(enemy) {
     domHandler[enemy](player[enemy]);
 }
 
+const randomizeShips = function(playerNum) {
+    ships[playerNum].forEach((ship) => {
+            player[playerNum].gameboard.randomShipPlace(ship)
+    })
+}
+
 const switchTurns = function() {
     enemy = turn;
     turn = turn === 'first' ? 'second': 'first';
@@ -115,5 +129,6 @@ const HaveAllBeenSunk = function(player) {
 
 export { 
     receiveAttack , 
+    getReady,
     startGame,
  };
