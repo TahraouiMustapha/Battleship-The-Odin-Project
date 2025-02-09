@@ -45,7 +45,7 @@ header {
     grid-template-columns: 190px 1fr 1fr 190px ;
     justify-items: center;
     align-items: center;
-    padding: 24px;
+    padding: 12px 24px;
     background-color: var(--battle-color);
 }
 
@@ -199,11 +199,32 @@ header {
     border-radius: 16px;
     border: none;
     font-size: 1.5em;
-    font-weight: 500;
+    font-weight: 600;
     background-color: white;
     cursor: pointer;
 }
 
-.get-ready button:hover {
-    background-color: rgba(255, 255, 255, 0.842);
+button:hover {
+    background-color: #add8e6;
+    color: blue;
+}
+
+
+.gameboard-btns {
+    margin-bottom: -16px;
+}
+
+.gameboard-btns button{
+    padding: 4px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    font-weight: 500;
+    border-radius: 12px;
+    border: none;
+}
+
+button.unclickable {
+    pointer-events: none;
+    background-color: #0024f3;
+    color: rgba(0, 0, 0, 0.5);
 }

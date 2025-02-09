@@ -43,11 +43,7 @@ const startGame = function() {
     // ships.forEach((ship) => {
     //     player['first'].gameboard.randomShipPlace(ship);
     // })
-    player['first'].gameboard.placeShip(ships[0], {x: 0, y: 2, direction: 'H'});
-    player['first'].gameboard.placeShip(ships[1], {x: 1, y: 2, direction: 'H'});
-    player['first'].gameboard.placeShip(ships[2], {x: 2, y: 2, direction: 'H'});
-    player['first'].gameboard.placeShip(ships[3], {x: 3, y: 2, direction: 'H'});
-    player['first'].gameboard.placeShip(ships[4], {x: 4, y: 2, direction: 'H'});
+
     
     
     player['second'].gameboard.placeShip(ships2[0], {x: 0, y: 0, direction: 'V'});
