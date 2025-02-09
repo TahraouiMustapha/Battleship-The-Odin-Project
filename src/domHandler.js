@@ -66,10 +66,16 @@ const domHandler = (function() {
         })
     }
 
+    const getRandomBtn = function() {
+        const random = document.querySelector('#randomize');
+        return random;
+    }
+
 
     return {
         'first' : renderFirstPlayerGameboard,
         'second' : renderSecondPlayerGameboard,
+        getRandomBtn,
     }
     
 })();
@@ -182,7 +188,7 @@ const domBuilder = (function() {
         createShip, 
         createColumnsNums,
         createLigneNums,
-        createShipSquare
+        createShipSquare,
     }
 
 })()
