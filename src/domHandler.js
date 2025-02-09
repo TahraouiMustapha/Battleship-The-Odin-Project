@@ -71,11 +71,25 @@ const domHandler = (function() {
         return random;
     }
 
+    const isReady = function() {
+        const startBtn = document.querySelector('.get-ready button');
+        if(startBtn) startBtn.classList.remove('unclickable');
+        domBuilder.changeGetReadyText('Your ships are ready ! click below to start enter battle');
+    }
+
+    const isNotReady = function() {
+        const startBtn = document.querySelector('.get-ready button');
+        if(startBtn) startBtn.classList.add('unclickable');
+        domBuilder.changeGetReadyText('Place your ships to get started');
+    }
+
 
     return {
         'first' : renderFirstPlayerGameboard,
         'second' : renderSecondPlayerGameboard,
         getRandomBtn,
+        isReady,
+        isNotReady
     }
     
 })();
@@ -181,6 +195,11 @@ const domBuilder = (function() {
         return myDiv;
     }
 
+    const changeGetReadyText = function(text) {
+        const info = document.querySelector('.get-ready .info');
+        info.textContent = text;
+    }
+
     return {
         createSquare,
         createMissSquare,
@@ -189,6 +208,7 @@ const domBuilder = (function() {
         createColumnsNums,
         createLigneNums,
         createShipSquare,
+        changeGetReadyText
     }
 
 })()
