@@ -30,6 +30,8 @@ const createGameboard = function( boardWidth = 10 ) {
     }
 
     const placeShip = function(ship, coordinate) {
+        coordinate.x = Number(coordinate.x);
+        coordinate.y = Number(coordinate.y);
         let { x, y, direction } = coordinate; 
         let horizentalCondition = ((y + ship.getLength() - 1) < boardWidth) && direction === 'H' ;
         let verticalCondition = ((x + ship.getLength() - 1) < boardWidth) && direction === 'V';
