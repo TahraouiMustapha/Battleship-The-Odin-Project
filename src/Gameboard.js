@@ -1,5 +1,5 @@
 const createGameboard = function( boardWidth = 10 ) {
-    const board = new Array(boardWidth).fill(null)
+    let board = new Array(boardWidth).fill(null)
                 .map(() => new Array(boardWidth).fill(0));
 
 
@@ -7,6 +7,10 @@ const createGameboard = function( boardWidth = 10 ) {
 
     const getBoard = function() { return board      }  ; 
     const getShips = function() { return boardShips }  ; 
+    const resetBoard = function() {
+        board = new Array(boardWidth).fill(null)
+        .map(() => new Array(boardWidth).fill(0));
+    }
 
     const isMissed = function(x, y) { return board[x][y] === 'miss'}
     const isHitted = function(x, y) { return board[x][y] === 'hit'}
@@ -95,7 +99,8 @@ const createGameboard = function( boardWidth = 10 ) {
         getShips,
         isMissed, 
         isHitted, 
-        randomShipPlace
+        randomShipPlace,
+        resetBoard
     }
 }
 
