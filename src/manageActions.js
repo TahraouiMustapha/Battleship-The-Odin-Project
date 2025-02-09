@@ -4,12 +4,19 @@ import { createShip } from "./Ship";
 
 let player = {};
 let turn = 'first', enemy = 'second';
+let direction = 'H';
 
 let gameState = {
     ready : false, 
     end: false,
     isEnd: function() {
         return this.end;
+    },
+    isReady: function() {
+        return this.ready;
+    },
+    makeItReady: function() {
+        this.ready = true;
     },
     finishGame: function() {
         this.end = true
@@ -129,9 +136,19 @@ function createShipList() {
     ];
 }  
 
+const eventHandler = function(x, y, boardClicked) {
+    if(gameState.isReady()) {
+        receiveAttack(x, y, boardClicked);
+    } else {
+        console.log('is not ready')
+        // make it ready
+        gameState.makeItReady()
+    }
+}
+
 
 export { 
-    receiveAttack , 
+    eventHandler , 
     getReady,
     startGame,
  };

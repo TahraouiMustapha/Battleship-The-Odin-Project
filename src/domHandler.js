@@ -1,4 +1,4 @@
-import { receiveAttack } from "./manageActions";
+import { eventHandler } from "./manageActions";
 import { createShip } from "./Ship";
 
 const shipsByDefault = [
@@ -126,7 +126,7 @@ const domBuilder = (function() {
 
         myDiv.addEventListener('click', (e) => {
             let boardClicked = e.target.closest('.board');
-            receiveAttack(e.target.dataset.x, 
+            eventHandler(e.target.dataset.x, 
                           e.target.dataset.y, 
                           boardClicked      );
         } );
