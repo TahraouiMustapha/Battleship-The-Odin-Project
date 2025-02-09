@@ -18,6 +18,9 @@ let gameState = {
     makeItReady: function() {
         this.ready = true;
     },
+    makeItNotReadyYet: function() {
+        this.ready = false;
+    },
     finishGame: function() {
         this.end = true
     }
@@ -26,6 +29,16 @@ let gameState = {
 let ships = {
     'first': createShipList(),
     'second' : createShipList(),
+    firstPlayersShips: {
+        current: 0,
+        moveToNext: function() {
+            this.current += 1;
+            return this.current >= 5 ? true: false;
+        },
+        resetCurrent: function() {
+            this.current = 0;
+        }
+    }
 } 
 
 const getReady = function() {
@@ -49,9 +62,10 @@ const getReady = function() {
     const undoBtn = domHandler.getUndoBtn();
     undoBtn.addEventListener('click', () => {
         firstPlayer.gameboard.resetBoard();
+        ships.firstPlayersShips.resetCurrent() // to repeat counting from the first ship
+        gameState.makeItNotReadyYet(); // to place their ships again
         domHandler['first'](firstPlayer)
         domHandler.isNotReady();
-
     })
 
     const startBtn = domHandler.getStartBtn();
@@ -140,9 +154,19 @@ const eventHandler = function(x, y, boardClicked) {
     if(gameState.isReady()) {
         receiveAttack(x, y, boardClicked);
     } else {
-        console.log('is not ready')
-        // make it ready
-        gameState.makeItReady()
+        let fullShips;
+        let goodPlaced = player['first'].gameboard.placeShip(
+            ships['first'][ships.firstPlayersShips.current],
+            { x, y, direction}   
+        )
+        if(goodPlaced) {
+            domHandler['first'](player['first']);
+            fullShips = ships.firstPlayersShips.moveToNext();
+        }
+        if(fullShips) {
+            gameState.makeItReady();
+            domHandler.isReady()
+        }
     }
 }
 

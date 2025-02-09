@@ -45,7 +45,7 @@ const domHandler = (function() {
 
     const renderFirstShipsPort = function(playersShipsObj) { 
         let  ships = Object.values(playersShipsObj) ;
-        if(!ships.length) ships = shipsByDefault;
+        if(ships.length !== shipsByDefault.length) ships = shipsByDefault;
         firstShipPort.innerHTML = ''
         ships.forEach((ship) => {
             firstShipPort.appendChild(
@@ -57,7 +57,7 @@ const domHandler = (function() {
 
     const renderSecondShipsPort = function(playersShipsObj) {
         let  ships = Object.values(playersShipsObj) ;
-        if(!ships.length) ships = shipsByDefault;
+        if(ships.length !== shipsByDefault.length) ships = shipsByDefault;
         secondShipPort.innerHTML = ''     
         ships.forEach((ship) => {
             secondShipPort.appendChild(
