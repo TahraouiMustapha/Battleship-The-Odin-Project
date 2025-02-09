@@ -212,6 +212,8 @@ button:hover {
 
 .gameboard-btns {
     margin-bottom: -16px;
+    display: flex;
+    gap: 16px;
 }
 
 .gameboard-btns button{

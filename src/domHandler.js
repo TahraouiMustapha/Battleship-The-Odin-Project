@@ -71,6 +71,11 @@ const domHandler = (function() {
         return random;
     }
 
+    const getUndoBtn = function() {
+        const undo = document.querySelector('#undo');
+        return undo;
+    }
+
     const isReady = function() {
         const startBtn = document.querySelector('.get-ready button');
         if(startBtn) startBtn.classList.remove('unclickable');
@@ -88,6 +93,7 @@ const domHandler = (function() {
         'first' : renderFirstPlayerGameboard,
         'second' : renderSecondPlayerGameboard,
         getRandomBtn,
+        getUndoBtn,
         isReady,
         isNotReady
     }
