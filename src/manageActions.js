@@ -2,9 +2,11 @@ import { domHandler } from "./domHandler";
 import { createComputerPlayer, createPlayer } from "./Player";
 import { createShip } from "./Ship";
 
-let player = {}
+let player = {};
+let turn = 'first', enemy = 'second';
 
 let gameState = {
+    ready : false, 
     end: false,
     isEnd: function() {
         return this.end;
@@ -14,26 +16,9 @@ let gameState = {
     }
 }
 
-let turn = 'first', enemy = 'second';
-
-
-let ships ={
-    'first': [
-        createShip(5, 'Carrier'),   
-        createShip(4, 'Battleship'),
-        createShip(3, 'Cruiser'),   
-        createShip(3, 'Submarine'), 
-        createShip(2, 'Destroyer') 
-    ]
-      ,  
-    'second' : [
-        createShip(5, 'Carrier'),   
-        createShip(4, 'Battleship'),
-        createShip(3, 'Cruiser'),   
-        createShip(3, 'Submarine'), 
-        createShip(2, 'Destroyer')
-    ]
-
+let ships = {
+    'first': createShipList(),
+    'second' : createShipList(),
 } 
 
 const getReady = function() {
@@ -43,8 +28,8 @@ const getReady = function() {
     }
 
     let firstPlayer = player['first'];
+    // render first player's board
     domHandler['first'](firstPlayer)
-    // get random btn and add event list to it
     const randomBtn = domHandler.getRandomBtn();
     
     randomBtn.addEventListener('click', () => {
@@ -66,11 +51,7 @@ const getReady = function() {
     startBtn.addEventListener('click', () => startGame() )
 }
 
-const startGame = function() {
-
-    // // predertimined coordinates for players' gameboards
-    
-    
+const startGame = function() {    
     domHandler.appearComputerBoard();
     randomizeShips('second');
     domHandler['first'](player['first'])
@@ -78,6 +59,7 @@ const startGame = function() {
 }
 
 const receiveAttack = function(x, y, boardClicked) {
+    if(!boardClicked) return;
     if(gameState.isEnd()) return ;
     if(boardClicked.classList.contains(turn))  return ; // the player's board
     
@@ -110,7 +92,6 @@ const receiveAttack = function(x, y, boardClicked) {
     logPlayersTurn(turn);
 }
 
-
 const renderDom = function(enemy) {
     domHandler[enemy](player[enemy]);
 }
@@ -137,6 +118,16 @@ const logsWinner = function(winner) {
 const HaveAllBeenSunk = function(player) {
     return player.gameboard.isLoseAllShips();
 }
+
+function createShipList() {
+    return [
+        createShip(5, 'Carrier'),   
+        createShip(4, 'Battleship'),
+        createShip(3, 'Cruiser'),   
+        createShip(3, 'Submarine'), 
+        createShip(2, 'Destroyer') 
+    ];
+}  
 
 
 export { 
