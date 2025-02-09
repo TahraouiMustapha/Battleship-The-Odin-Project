@@ -172,10 +172,6 @@ header {
 }
 
 /* before start the game */
-.second.gameboard , 
-.second.ships-port {
-    display: none;
-}
 
 .get-ready {
     display: flex;
@@ -229,4 +225,8 @@ button.unclickable {
     pointer-events: none;
     background-color: #0024f3;
     color: rgba(0, 0, 0, 0.5);
+}
+
+.hide {
+    display: none;
 }
