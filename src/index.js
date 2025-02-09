@@ -1,7 +1,8 @@
 import './styles/style.css';
-import { startGame } from './manageActions';
+import { getReady } from './manageActions';
 
-startGame();
+
+getReady();
 
 
 

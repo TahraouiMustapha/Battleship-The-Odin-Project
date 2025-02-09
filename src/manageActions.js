@@ -43,15 +43,27 @@ const getReady = function() {
     }
 
     let firstPlayer = player['first'];
+    domHandler['first'](firstPlayer)
     // get random btn and add event list to it
     const randomBtn = domHandler.getRandomBtn();
+    
     randomBtn.addEventListener('click', () => {
-        console.log('random')
         firstPlayer.gameboard.resetBoard();
         randomizeShips('first');
         domHandler['first'](firstPlayer)
+        domHandler.isReady()
     })
 
+    const undoBtn = domHandler.getUndoBtn();
+    undoBtn.addEventListener('click', () => {
+        firstPlayer.gameboard.resetBoard();
+        domHandler['first'](firstPlayer)
+        domHandler.isNotReady();
+
+    })
+
+    const startBtn = domHandler.getStartBtn();
+    startBtn.addEventListener('click', () => startGame() )
 }
 
 const startGame = function() {
@@ -59,7 +71,7 @@ const startGame = function() {
     // // predertimined coordinates for players' gameboards
     
     
-    
+    domHandler.appearComputerBoard();
     randomizeShips('second');
     domHandler['first'](player['first'])
     domHandler['second'](player['second'])
