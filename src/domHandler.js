@@ -76,6 +76,11 @@ const domHandler = (function() {
         return undo;
     }
 
+    const getStartBtn = function() {
+        const start = document.querySelector('.get-ready .start');
+        return start;
+    }
+
     const isReady = function() {
         const startBtn = document.querySelector('.get-ready button');
         if(startBtn) startBtn.classList.remove('unclickable');
@@ -88,14 +93,26 @@ const domHandler = (function() {
         domBuilder.changeGetReadyText('Place your ships to get started');
     }
 
+    const appearComputerBoard = function() {
+        const computersThings = document.querySelectorAll('.second');
+        computersThings.forEach((thing) => thing.classList.remove('hide'));
+        const getReadyPart = document.querySelector('.get-ready');
+        getReadyPart.classList.add('hide');
+
+        const gameboardsbtns = document.querySelector('.gameboard-btns');
+        gameboardsbtns.classList.add('hide');
+    }
+
 
     return {
         'first' : renderFirstPlayerGameboard,
         'second' : renderSecondPlayerGameboard,
         getRandomBtn,
         getUndoBtn,
+        getStartBtn,
         isReady,
-        isNotReady
+        isNotReady,
+        appearComputerBoard
     }
     
 })();
