@@ -33,6 +33,8 @@ let ships = {
         current: 0,
         moveToNext: function() {
             this.current += 1;
+        },
+        isFullShip: function() {
             return this.current >= 5 ? true: false;
         },
         resetCurrent: function() {
@@ -75,7 +77,6 @@ const getReady = function() {
 const startGame = function() {    
     domHandler.appearComputerBoard();
     randomizeShips('second');
-    domHandler['first'](player['first'])
     domHandler['second'](player['second'])
 }
 
@@ -161,7 +162,8 @@ const eventHandler = function(x, y, boardClicked) {
         )
         if(goodPlaced) {
             domHandler['first'](player['first']);
-            fullShips = ships.firstPlayersShips.moveToNext();
+            ships.firstPlayersShips.moveToNext();
+            fullShips = ships.firstPlayersShips.isFullShip()
         }
         if(fullShips) {
             gameState.makeItReady();
@@ -170,9 +172,19 @@ const eventHandler = function(x, y, boardClicked) {
     }
 }
 
+const hoverOn = function(event) {
+    if(!gameState.isReady()){       
+        // get length of the current ship
+        let shipLenght = Number(ships['first'][ships.firstPlayersShips.current].getLength());
+        let [x, y] =  [event.target.dataset.x, event.target.dataset.y]
+        domHandler.renderBoardwhilePlaceShips(x, y, 10, (shipLenght + Number(y)) - 1, player['first'].gameboard.getBoard());
+    }
+}
+
 
 export { 
     eventHandler , 
     getReady,
     startGame,
+    hoverOn
  };
