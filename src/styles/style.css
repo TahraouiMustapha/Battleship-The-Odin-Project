@@ -230,3 +230,8 @@ button.unclickable {
 .hide {
     display: none;
 }
+
+/* for hovered square when choose coordinate for ship */
+.square.hovered {
+    background-color: rgb(180, 224, 255);
+}
