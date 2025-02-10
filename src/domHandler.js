@@ -1,4 +1,4 @@
-import { eventHandler } from "./manageActions";
+import { eventHandler, hoverOn } from "./manageActions";
 import { createShip } from "./Ship";
 
 const shipsByDefault = [
@@ -11,6 +11,10 @@ const shipsByDefault = [
 
 const domHandler = (function() {
     const firstBoard = document.querySelector('.first.board');
+    firstBoard.addEventListener('mousemove', (e)=> {
+        hoverOn(e) 
+    }, { capture: true })
+
     const secondBoard = document.querySelector('.second.board');
     const firstShipPort = document.querySelector('.first.ships-port');
     const secondShipPort = document.querySelector('.second.ships-port');
@@ -27,6 +31,30 @@ const domHandler = (function() {
                 else if(value === 'hit') domBoard.appendChild(domBuilder.createHitSquare(x, y));
                 else if(value != '') domBoard.appendChild(domBuilder.createShipSquare(x, y));
                 else domBoard.appendChild(domBuilder.createSquare(x, y))
+                y += 1;
+            })
+            x += 1;
+        })
+    }
+
+    const renderBoardwhilePlaceShips = function(dataX, dataY, boardBound, shipBound, playerBoard) {
+        firstBoard.innerHTML = ''
+        firstBoard.appendChild( domBuilder.createColumnsNums() );
+        firstBoard.appendChild( domBuilder.createLigneNums() );
+        let x = 0, y;
+        playerBoard.forEach((ligne) => {
+            y = 0;
+            ligne.forEach((value) => {                
+                if(value != '') firstBoard.appendChild(domBuilder.createShipSquare(x, y));
+                else {
+                    let square = domBuilder.createSquare(x, y);
+                    if(dataX == x) {
+                        if(y >= dataY && y < boardBound && y <= shipBound) {
+                            square.classList.add('hovered');
+                        } 
+                    }
+                    firstBoard.appendChild(square);
+                }
                 y += 1;
             })
             x += 1;
@@ -112,7 +140,8 @@ const domHandler = (function() {
         getStartBtn,
         isReady,
         isNotReady,
-        appearComputerBoard
+        appearComputerBoard,
+        renderBoardwhilePlaceShips
     }
     
 })();
