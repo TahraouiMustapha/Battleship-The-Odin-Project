@@ -177,6 +177,10 @@ const hoverOn = function(event) {
         // get length of the current ship
         let shipLenght = Number(ships['first'][ships.firstPlayersShips.current].getLength());
         let [x, y] =  [event.target.dataset.x, event.target.dataset.y]
+        if(!x || !y) {
+            domHandler['first'](player['first']);
+            return;
+        }
         domHandler.renderBoardwhilePlaceShips(x, y, 10, (shipLenght + Number(y)) - 1, player['first'].gameboard.getBoard());
     }
 }

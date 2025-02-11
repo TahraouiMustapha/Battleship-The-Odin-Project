@@ -11,9 +11,13 @@ const shipsByDefault = [
 
 const domHandler = (function() {
     const firstBoard = document.querySelector('.first.board');
-    firstBoard.addEventListener('mousemove', (e)=> {
+    firstBoard.addEventListener('mouseover', (e)=> {
         hoverOn(e) 
     }, { capture: true })
+
+    firstBoard.addEventListener('mouseleave', (e)=> {
+        hoverOn(e)
+    })
 
     const secondBoard = document.querySelector('.second.board');
     const firstShipPort = document.querySelector('.first.ships-port');
