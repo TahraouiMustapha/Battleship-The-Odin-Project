@@ -146,6 +146,9 @@ const domHandler = (function() {
 
         const gameboardsbtns = document.querySelector('.gameboard-btns');
         gameboardsbtns.classList.add('hide');
+
+        const screen = document.querySelector('.screen');
+        screen.classList.remove('hide');
     }
 
 
