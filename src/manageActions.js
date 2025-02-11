@@ -45,7 +45,7 @@ let ships = {
 
 const getReady = function() {
     player = {
-        'first'  : createPlayer('mohamed'),
+        'first'  : createPlayer('Player 1'),
         'second' : createComputerPlayer() 
     }
 
@@ -93,7 +93,8 @@ const receiveAttack = async function(x, y, boardClicked) {
     let attackResult = player[enemy].gameboard.receiveAttack(x, y);
     if( HaveAllBeenSunk(player[enemy]) ) { 
         gameState.finishGame();
-        logsWinner(player[turn].name)
+        domHandler.logPlayersTurn(`${player[turn].name} is win!`)
+        return;
     }
     
     if(attackResult) {
@@ -102,21 +103,22 @@ const receiveAttack = async function(x, y, boardClicked) {
         switchTurns();
         // if the computer's turn
         if(turn === 'second') {
-            domHandler.logPlayersTurn(turn);
+            domHandler.logPlayersTurn('Awaiting attack from the computer...');
             await delay(700);
             let computerChoice = player[turn].attack( player[enemy].gameboard )
             // shot on the player's board
             player[enemy].gameboard.receiveAttack(computerChoice[0], computerChoice[1]);
             if( HaveAllBeenSunk(player[enemy]) ) { 
                 gameState.finishGame();
-                logsWinner(player[turn].name) 
+                domHandler.logPlayersTurn(`${player[turn].name} is win!`)    
+                return;
             }
             renderDom(enemy);
             switchTurns()
         }
     }
 
-    domHandler.logPlayersTurn(turn);
+    domHandler.logPlayersTurn('It\'s your turn... fire away!');
 }
 
 const delay = function(ms) {
@@ -140,10 +142,6 @@ const changeDirection = function() {
 const switchTurns = function() {
     enemy = turn;
     turn = turn === 'first' ? 'second': 'first';
-}
-
-const logsWinner = function(winner) {
-    console.log(winner , ' is Win ');
 }
 
 const HaveAllBeenSunk = function(player) {
