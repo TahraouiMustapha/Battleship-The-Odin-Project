@@ -52,8 +52,11 @@ const getReady = function() {
     let firstPlayer = player['first'];
     // render first player's board
     domHandler['first'](firstPlayer)
+
+    const rotateBtn = domHandler.getRotateBtn();
+    rotateBtn.addEventListener('click', () => changeDirection() );
+
     const randomBtn = domHandler.getRandomBtn();
-    
     randomBtn.addEventListener('click', () => {
         firstPlayer.gameboard.resetBoard();
         randomizeShips('first');
@@ -125,7 +128,7 @@ const randomizeShips = function(playerNum) {
 }
 
 const changeDirection = function() {
-    direction = 'V';
+    direction = direction === 'H' ? 'V' : 'H';
 }
 
 const switchTurns = function() {

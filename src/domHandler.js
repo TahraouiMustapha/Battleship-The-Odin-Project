@@ -106,6 +106,11 @@ const domHandler = (function() {
         })
     }
 
+    const getRotateBtn = function() {
+        const rotate = document.querySelector('#rotate');
+        return rotate;
+    }
+
     const getRandomBtn = function() {
         const random = document.querySelector('#randomize');
         return random;
@@ -147,6 +152,7 @@ const domHandler = (function() {
     return {
         'first' : renderFirstPlayerGameboard,
         'second' : renderSecondPlayerGameboard,
+        getRotateBtn,
         getRandomBtn,
         getUndoBtn,
         getStartBtn,
