@@ -41,7 +41,7 @@ const domHandler = (function() {
         })
     }
 
-    const renderBoardwhilePlaceShips = function(dataX, dataY, boardBound, shipBound, playerBoard) {
+    const renderBoardwhilePlaceShips = function(coordinate, boardBound, shipBound, playerBoard) {
         firstBoard.innerHTML = ''
         firstBoard.appendChild( domBuilder.createColumnsNums() );
         firstBoard.appendChild( domBuilder.createLigneNums() );
@@ -52,10 +52,18 @@ const domHandler = (function() {
                 if(value != '') firstBoard.appendChild(domBuilder.createShipSquare(x, y));
                 else {
                     let square = domBuilder.createSquare(x, y);
-                    if(dataX == x) {
-                        if(y >= dataY && y < boardBound && y <= shipBound) {
-                            square.classList.add('hovered');
-                        } 
+                    if(coordinate.direction === 'H') {
+                        if(coordinate.x == x) {
+                            if(y >= coordinate.y && y < boardBound && y <= shipBound) {
+                                square.classList.add('hovered');
+                            } 
+                        }
+                    } else {
+                        if(coordinate.y == y) {
+                            if(x >= coordinate.x && x < boardBound && x <= shipBound) {
+                                square.classList.add('hovered');
+                            } 
+                        }
                     }
                     firstBoard.appendChild(square);
                 }

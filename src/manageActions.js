@@ -124,6 +124,10 @@ const randomizeShips = function(playerNum) {
     })
 }
 
+const changeDirection = function() {
+    direction = 'V';
+}
+
 const switchTurns = function() {
     enemy = turn;
     turn = turn === 'first' ? 'second': 'first';
@@ -173,15 +177,22 @@ const eventHandler = function(x, y, boardClicked) {
 }
 
 const hoverOn = function(event) {
-    if(!gameState.isReady()){       
+    if(!gameState.isReady()){    
         // get length of the current ship
-        let shipLenght = Number(ships['first'][ships.firstPlayersShips.current].getLength());
+        let shipLength = Number(ships['first'][ships.firstPlayersShips.current].getLength());
         let [x, y] =  [event.target.dataset.x, event.target.dataset.y]
         if(!x || !y) {
             domHandler['first'](player['first']);
             return;
         }
-        domHandler.renderBoardwhilePlaceShips(x, y, 10, (shipLenght + Number(y)) - 1, player['first'].gameboard.getBoard());
+        let shipBound = direction == 'H' ? (shipLength + Number(y)) - 1 : (shipLength + Number(x)) - 1
+        // direction here is a globale varible 
+        domHandler.renderBoardwhilePlaceShips({ x: Number(x), 
+                                                y:Number(y), 
+                                                direction }
+                                                , 10, 
+                                                shipBound, 
+                                                player['first'].gameboard.getBoard());
     }
 }
 
@@ -190,5 +201,6 @@ export {
     eventHandler , 
     getReady,
     startGame,
-    hoverOn
+    hoverOn,
+    changeDirection
  };
