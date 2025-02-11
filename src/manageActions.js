@@ -84,7 +84,7 @@ const startGame = function() {
     domHandler['second'](player['second'])
 }
 
-const receiveAttack = function(x, y, boardClicked) {
+const receiveAttack = async function(x, y, boardClicked) {
     if(!boardClicked) return;
     if(gameState.isEnd()) return ;
     if(boardClicked.classList.contains(turn))  return ; // the player's board
@@ -102,7 +102,8 @@ const receiveAttack = function(x, y, boardClicked) {
         switchTurns();
         // if the computer's turn
         if(turn === 'second') {
-            logPlayersTurn(turn);
+            domHandler.logPlayersTurn(turn);
+            await delay(700);
             let computerChoice = player[turn].attack( player[enemy].gameboard )
             // shot on the player's board
             player[enemy].gameboard.receiveAttack(computerChoice[0], computerChoice[1]);
@@ -115,7 +116,11 @@ const receiveAttack = function(x, y, boardClicked) {
         }
     }
 
-    logPlayersTurn(turn);
+    domHandler.logPlayersTurn(turn);
+}
+
+const delay = function(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 const renderDom = function(enemy) {
@@ -135,10 +140,6 @@ const changeDirection = function() {
 const switchTurns = function() {
     enemy = turn;
     turn = turn === 'first' ? 'second': 'first';
-}
-
-const logPlayersTurn = function(playerTurn) {
-    console.log(playerTurn)
 }
 
 const logsWinner = function(winner) {

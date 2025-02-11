@@ -151,6 +151,15 @@ const domHandler = (function() {
         screen.classList.remove('hide');
     }
 
+    const logPlayersTurn = function(playerTurn) {
+        const screen = document.querySelector('.screen');
+        if(playerTurn === 'first') {
+            screen.textContent = 'It\'s your turn... fire away!'
+        } else {
+            screen.textContent = 'Awaiting attack from the computer...'
+        }
+    }
+
 
     return {
         'first' : renderFirstPlayerGameboard,
@@ -162,7 +171,8 @@ const domHandler = (function() {
         isReady,
         isNotReady,
         appearComputerBoard,
-        renderBoardwhilePlaceShips
+        renderBoardwhilePlaceShips,
+        logPlayersTurn
     }
     
 })();
