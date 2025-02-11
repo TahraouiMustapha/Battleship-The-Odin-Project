@@ -60,6 +60,7 @@ const getReady = function() {
     randomBtn.addEventListener('click', () => {
         firstPlayer.gameboard.resetBoard();
         randomizeShips('first');
+        gameState.makeItReady();
         domHandler['first'](firstPlayer)
         domHandler.isReady()
     })
