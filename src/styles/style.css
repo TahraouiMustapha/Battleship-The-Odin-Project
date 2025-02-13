@@ -251,7 +251,6 @@ button.unclickable {
 
 .ships-port .arrow {
     position: absolute;
-    top: 0;
+    top: 12px;
     transform: translateX(-120% );
-    
 }
