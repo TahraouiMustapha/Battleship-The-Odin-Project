@@ -52,6 +52,7 @@ const getReady = function() {
     let firstPlayer = player['first'];
     // render first player's board
     domHandler['first'](firstPlayer)
+    domHandler.pointToShip(5, ships.firstPlayersShips.current)
 
     const rotateBtn = domHandler.getRotateBtn();
     rotateBtn.addEventListener('click', () => changeDirection() );
@@ -71,6 +72,7 @@ const getReady = function() {
         ships.firstPlayersShips.resetCurrent() // to repeat counting from the first ship
         gameState.makeItNotReadyYet(); // to place their ships again
         domHandler['first'](firstPlayer)
+        domHandler.pointToShip(5);// to put arrow on first ship
         domHandler.isNotReady();
     })
 
@@ -111,7 +113,6 @@ const receiveAttack = async function(x, y, boardClicked) {
             if( HaveAllBeenSunk(player[enemy]) ) { 
                 gameState.finishGame();
                 domHandler.logPlayersTurn(`${player[turn].name} is win!`)    
-                return;
             }
             renderDom(enemy);
             switchTurns()
@@ -170,6 +171,7 @@ const eventHandler = function(x, y, boardClicked) {
         if(goodPlaced) {
             domHandler['first'](player['first']);
             ships.firstPlayersShips.moveToNext();
+            domHandler.pointToShip(5, ships.firstPlayersShips.current);
             fullShips = ships.firstPlayersShips.isFullShip()
         }
         if(fullShips) {
@@ -186,6 +188,7 @@ const hoverOn = function(event) {
         let [x, y] =  [event.target.dataset.x, event.target.dataset.y]
         if(!x || !y) {
             domHandler['first'](player['first']);
+            domHandler.pointToShip(5, ships.firstPlayersShips.current)
             return;
         }
         let shipBound = direction == 'H' ? (shipLength + Number(y)) - 1 : (shipLength + Number(x)) - 1

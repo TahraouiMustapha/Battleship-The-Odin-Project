@@ -1,6 +1,8 @@
 import { eventHandler, hoverOn } from "./manageActions";
 import { createShip } from "./Ship";
 
+import arrowIcon from "./icons/arrow.svg";
+
 const shipsByDefault = [
      createShip(5, 'Carrier'),
      createShip(4, 'Battleship'),
@@ -156,6 +158,13 @@ const domHandler = (function() {
         screen.textContent = turnAnnouncement;        
     }
 
+    const pointToShip = function(numberOfShips, currentIndex = 0) {
+        if(currentIndex < numberOfShips) {
+            const ships = document.querySelectorAll('.ship');
+            ships[currentIndex].appendChild(domBuilder.createArrow());
+        } 
+    }
+
 
     return {
         'first' : renderFirstPlayerGameboard,
@@ -168,7 +177,8 @@ const domHandler = (function() {
         isNotReady,
         appearComputerBoard,
         renderBoardwhilePlaceShips,
-        logPlayersTurn
+        logPlayersTurn,
+        pointToShip
     }
     
 })();
@@ -279,6 +289,18 @@ const domBuilder = (function() {
         info.textContent = text;
     }
 
+    const createArrow = function() {
+        const myDiv = document.createElement('div');
+        myDiv.classList.add('arrow');
+        
+        const img = document.createElement('img');
+        img.src = arrowIcon;
+        img.alt = 'icon'
+
+        myDiv.appendChild(img);
+        return myDiv;
+    }
+
     return {
         createSquare,
         createMissSquare,
@@ -287,7 +309,8 @@ const domBuilder = (function() {
         createColumnsNums,
         createLigneNums,
         createShipSquare,
-        changeGetReadyText
+        changeGetReadyText,
+        createArrow
     }
 
 })()
