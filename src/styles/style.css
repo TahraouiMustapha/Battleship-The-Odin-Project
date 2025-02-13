@@ -154,6 +154,9 @@ header {
     gap: 8px;
     justify-content: center;
     align-items: flex-start;
+
+    /*for the arrow icon  */
+    position: relative;
 }
 
 .ship-body {
@@ -244,4 +247,11 @@ button.unclickable {
     color: white;
     font-size: 1.4em;
     font-weight: 600;
+}
+
+.ships-port .arrow {
+    position: absolute;
+    top: 0;
+    transform: translateX(-120% );
+    
 }
