@@ -84,6 +84,10 @@ const startGame = function() {
     domHandler.appearComputerBoard();
     randomizeShips('second');
     domHandler['second'](player['second'])
+    window.scrollTo({
+        top: 70,
+        behavior: 'smooth'
+    });
 }
 
 const receiveAttack = async function(x, y, boardClicked) {
@@ -94,6 +98,7 @@ const receiveAttack = async function(x, y, boardClicked) {
     // the enemy's board
     let attackResult = player[enemy].gameboard.receiveAttack(x, y);
     if( HaveAllBeenSunk(player[enemy]) ) { 
+        renderDom(enemy);
         gameState.finishGame();
         domHandler.logPlayersTurn(`${player[turn].name} is win!`)
         return;
